@@ -1,449 +1,496 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
-  {
-    "id": "Chcp.chcp",
-    "file": "plugins/Chcp/www/chcp.js",
-    "pluginId": "Chcp",
-    "clobbers": [
-      "chcp"
-    ]
-  },
-  {
-    "id": "SplashScreen.SplashScreen",
-    "file": "plugins/SplashScreen/www/splashscreen.js",
-    "pluginId": "SplashScreen",
-    "clobbers": [
-      "navigator.splashscreen"
-    ]
-  },
-  {
-    "id": "Push.PushNotification",
-    "file": "plugins/Push/www/push.js",
-    "pluginId": "Push",
-    "clobbers": [
-      "PushNotification"
-    ]
-  },
-  {
-    "id": "WebView.webview",
-    "file": "plugins/WebView/www/webViewPlugin.js",
-    "pluginId": "WebView",
-    "clobbers": [
-      "window.webview"
-    ]
-  },
-  {
-    "id": "Promises.Promise",
-    "file": "plugins/Promises/www/promise.js",
-    "pluginId": "Promises",
-    "runs": true
-  },
-  {
-    "id": "AdmobPro.AdMob",
-    "file": "plugins/AdmobPro/www/AdMob.js",
-    "pluginId": "AdmobPro",
-    "clobbers": [
-      "window.AdMob"
-    ]
-  },
-  {
-    "id": "AppVersion.AppVersionPlugin",
-    "file": "plugins/AppVersion/www/AppVersionPlugin.js",
-    "pluginId": "AppVersion",
-    "clobbers": [
-      "cordova.getAppVersion"
-    ]
-  },
-  {
-    "id": "BarcodeScanner.BarcodeScanner",
-    "file": "plugins/BarcodeScanner/www/barcodescanner.js",
-    "pluginId": "BarcodeScanner",
-    "clobbers": [
-      "cordova.plugins.barcodeScanner"
-    ]
-  },
-  {
-    "id": "Camera.Camera",
-    "file": "plugins/Camera/www/CameraConstants.js",
-    "pluginId": "Camera",
-    "clobbers": [
-      "Camera"
-    ]
-  },
-  {
-    "id": "Camera.CameraPopoverOptions",
-    "file": "plugins/Camera/www/CameraPopoverOptions.js",
-    "pluginId": "Camera",
-    "clobbers": [
-      "CameraPopoverOptions"
-    ]
-  },
-  {
-    "id": "Camera.camera",
-    "file": "plugins/Camera/www/Camera.js",
-    "pluginId": "Camera",
-    "clobbers": [
-      "navigator.camera"
-    ]
-  },
-  {
-    "id": "Camera.CameraPopoverHandle",
-    "file": "plugins/Camera/www/ios/CameraPopoverHandle.js",
-    "pluginId": "Camera",
-    "clobbers": [
-      "CameraPopoverHandle"
-    ]
-  },
-  {
-    "id": "Clipboard.Clipboard",
-    "file": "plugins/Clipboard/www/clipboard.js",
-    "pluginId": "Clipboard",
-    "clobbers": [
-      "cordova.plugins.clipboard"
-    ]
-  },
-  {
-    "id": "Device.device",
-    "file": "plugins/Device/www/device.js",
-    "pluginId": "Device",
-    "clobbers": [
-      "device"
-    ]
-  },
-  {
-    "id": "File.DirectoryEntry",
-    "file": "plugins/File/www/DirectoryEntry.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.DirectoryEntry"
-    ]
-  },
-  {
-    "id": "File.DirectoryReader",
-    "file": "plugins/File/www/DirectoryReader.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.DirectoryReader"
-    ]
-  },
-  {
-    "id": "File.Entry",
-    "file": "plugins/File/www/Entry.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.Entry"
-    ]
-  },
-  {
-    "id": "File.File",
-    "file": "plugins/File/www/File.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.File"
-    ]
-  },
-  {
-    "id": "File.FileEntry",
-    "file": "plugins/File/www/FileEntry.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.FileEntry"
-    ]
-  },
-  {
-    "id": "File.FileError",
-    "file": "plugins/File/www/FileError.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.FileError"
-    ]
-  },
-  {
-    "id": "File.FileReader",
-    "file": "plugins/File/www/FileReader.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.FileReader"
-    ]
-  },
-  {
-    "id": "File.FileSystem",
-    "file": "plugins/File/www/FileSystem.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.FileSystem"
-    ]
-  },
-  {
-    "id": "File.FileUploadOptions",
-    "file": "plugins/File/www/FileUploadOptions.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.FileUploadOptions"
-    ]
-  },
-  {
-    "id": "File.FileUploadResult",
-    "file": "plugins/File/www/FileUploadResult.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.FileUploadResult"
-    ]
-  },
-  {
-    "id": "File.FileWriter",
-    "file": "plugins/File/www/FileWriter.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.FileWriter"
-    ]
-  },
-  {
-    "id": "File.Flags",
-    "file": "plugins/File/www/Flags.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.Flags"
-    ]
-  },
-  {
-    "id": "File.LocalFileSystem",
-    "file": "plugins/File/www/LocalFileSystem.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.LocalFileSystem"
-    ],
-    "merges": [
-      "window"
-    ]
-  },
-  {
-    "id": "File.Metadata",
-    "file": "plugins/File/www/Metadata.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.Metadata"
-    ]
-  },
-  {
-    "id": "File.ProgressEvent",
-    "file": "plugins/File/www/ProgressEvent.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.ProgressEvent"
-    ]
-  },
-  {
-    "id": "File.fileSystems",
-    "file": "plugins/File/www/fileSystems.js",
-    "pluginId": "File"
-  },
-  {
-    "id": "File.requestFileSystem",
-    "file": "plugins/File/www/requestFileSystem.js",
-    "pluginId": "File",
-    "clobbers": [
-      "window.requestFileSystem"
-    ]
-  },
-  {
-    "id": "File.resolveLocalFileSystemURI",
-    "file": "plugins/File/www/resolveLocalFileSystemURI.js",
-    "pluginId": "File",
-    "merges": [
-      "window"
-    ]
-  },
-  {
-    "id": "File.isChrome",
-    "file": "plugins/File/www/browser/isChrome.js",
-    "pluginId": "File",
-    "runs": true
-  },
-  {
-    "id": "File.iosFileSystem",
-    "file": "plugins/File/www/ios/FileSystem.js",
-    "pluginId": "File",
-    "merges": [
-      "FileSystem"
-    ]
-  },
-  {
-    "id": "File.fileSystems-roots",
-    "file": "plugins/File/www/fileSystems-roots.js",
-    "pluginId": "File",
-    "runs": true
-  },
-  {
-    "id": "File.fileSystemPaths",
-    "file": "plugins/File/www/fileSystemPaths.js",
-    "pluginId": "File",
-    "merges": [
-      "cordova"
-    ],
-    "runs": true
-  },
-  {
-    "id": "Geolocation.Coordinates",
-    "file": "plugins/Geolocation/www/Coordinates.js",
-    "pluginId": "Geolocation",
-    "clobbers": [
-      "Coordinates"
-    ]
-  },
-  {
-    "id": "Geolocation.PositionError",
-    "file": "plugins/Geolocation/www/PositionError.js",
-    "pluginId": "Geolocation",
-    "clobbers": [
-      "PositionError"
-    ]
-  },
-  {
-    "id": "Geolocation.Position",
-    "file": "plugins/Geolocation/www/Position.js",
-    "pluginId": "Geolocation",
-    "clobbers": [
-      "Position"
-    ]
-  },
-  {
-    "id": "Geolocation.geolocation",
-    "file": "plugins/Geolocation/www/geolocation.js",
-    "pluginId": "Geolocation",
-    "clobbers": [
-      "navigator.geolocation"
-    ]
-  },
-  {
-    "id": "InAppBrowser.inappbrowser",
-    "file": "plugins/InAppBrowser/www/inappbrowser.js",
-    "pluginId": "InAppBrowser",
-    "clobbers": [
-      "cordova.InAppBrowser.open",
-      "window.open"
-    ]
-  },
-  {
-    "id": "Keyboard.keyboard",
-    "file": "plugins/Keyboard/www/ios/keyboard.js",
-    "pluginId": "Keyboard",
-    "clobbers": [
-      "cordova.plugins.Keyboard"
-    ]
-  },
-  {
-    "id": "SocialSharing.SocialSharing",
-    "file": "plugins/SocialSharing/www/SocialSharing.js",
-    "pluginId": "SocialSharing",
-    "clobbers": [
-      "window.plugins.socialsharing"
-    ]
-  },
-  {
-    "id": "StatusBar.statusbar",
-    "file": "plugins/StatusBar/www/statusbar.js",
-    "pluginId": "StatusBar",
-    "clobbers": [
-      "window.StatusBar"
-    ]
-  },
-  {
-    "id": "LocalNotification.LocalNotification",
-    "file": "plugins/LocalNotification/www/local-notification.js",
-    "pluginId": "LocalNotification",
-    "clobbers": [
-      "cordova.plugins.notification.local",
-      "plugin.notification.local"
-    ]
-  },
-  {
-    "id": "LocalNotification.LocalNotification.Core",
-    "file": "plugins/LocalNotification/www/local-notification-core.js",
-    "pluginId": "LocalNotification",
-    "clobbers": [
-      "cordova.plugins.notification.local.core",
-      "plugin.notification.local.core"
-    ]
-  },
-  {
-    "id": "LocalNotification.LocalNotification.Util",
-    "file": "plugins/LocalNotification/www/local-notification-util.js",
-    "pluginId": "LocalNotification",
-    "merges": [
-      "cordova.plugins.notification.local.core",
-      "plugin.notification.local.core"
-    ]
-  },
-  {
-    "id": "OfflineMode.OfflineMode",
-    "file": "plugins/OfflineMode/www/OfflineMode.js",
-    "pluginId": "OfflineMode",
-    "clobbers": [
-      "window.OfflineMode"
-    ]
-  },
-  {
-    "id": "Insomnia.Insomnia",
-    "file": "plugins/Insomnia/www/Insomnia.js",
-    "pluginId": "Insomnia",
-    "clobbers": [
-      "window.plugins.insomnia"
-    ]
-  },
-  {
-    "id": "MusicControls.MusicControls",
-    "file": "plugins/MusicControls/www/MusicControls.js",
-    "pluginId": "MusicControls",
-    "clobbers": [
-      "MusicControls"
-    ]
-  },
-  {
-    "id": "Navigator.Navigator",
-    "file": "plugins/Navigator/www/navigator.js",
-    "pluginId": "Navigator",
-    "clobbers": [
-      "Navigator"
-    ]
-  },
-  {
-    "id": "Permissions.Permissions",
-    "file": "plugins/Permissions/www/permissions-dummy.js",
-    "pluginId": "Permissions",
-    "clobbers": [
-      "cordova.plugins.permissions"
-    ]
-  }
+    {
+        "id": "com.transistorsoft.cordova.background-geolocation.BackgroundGeolocation",
+        "file": "plugins/com.transistorsoft.cordova.background-geolocation/www/BackgroundGeolocation.js",
+        "pluginId": "com.transistorsoft.cordova.background-geolocation",
+        "clobbers": [
+            "window.BackgroundGeolocation"
+        ]
+    },
+    {
+        "id": "cordova-hot-code-push-plugin.chcp",
+        "file": "plugins/cordova-hot-code-push-plugin/www/chcp.js",
+        "pluginId": "cordova-hot-code-push-plugin",
+        "clobbers": [
+            "chcp"
+        ]
+    },
+    {
+        "id": "cordova-plugin-splashscreen.SplashScreen",
+        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+        "pluginId": "cordova-plugin-splashscreen",
+        "clobbers": [
+            "navigator.splashscreen"
+        ]
+    },
+    {
+        "id": "phonegap-plugin-push.PushNotification",
+        "file": "plugins/phonegap-plugin-push/www/push.js",
+        "pluginId": "phonegap-plugin-push",
+        "clobbers": [
+            "PushNotification"
+        ]
+    },
+    {
+        "id": "cordova-plugin-app-version.AppVersionPlugin",
+        "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+        "pluginId": "cordova-plugin-app-version",
+        "clobbers": [
+            "cordova.getAppVersion"
+        ]
+    },
+    {
+        "id": "com.keosu.cordova.stream.Stream",
+        "file": "plugins/com.keosu.cordova.stream/www/Stream.js",
+        "pluginId": "com.keosu.cordova.stream",
+        "clobbers": [
+            "window.Stream"
+        ]
+    },
+    {
+        "id": "cordova-plugin-background-fetch.BackgroundFetch",
+        "file": "plugins/cordova-plugin-background-fetch/www/BackgroundFetch.js",
+        "pluginId": "cordova-plugin-background-fetch",
+        "clobbers": [
+            "window.BackgroundFetch"
+        ]
+    },
+    {
+        "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
+        "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
+        "pluginId": "phonegap-plugin-barcodescanner",
+        "clobbers": [
+            "cordova.plugins.barcodeScanner"
+        ]
+    },
+    {
+        "id": "cordova-plugin-camera.Camera",
+        "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+        "pluginId": "cordova-plugin-camera",
+        "clobbers": [
+            "Camera"
+        ]
+    },
+    {
+        "id": "cordova-plugin-camera.CameraPopoverOptions",
+        "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
+        "pluginId": "cordova-plugin-camera",
+        "clobbers": [
+            "CameraPopoverOptions"
+        ]
+    },
+    {
+        "id": "cordova-plugin-camera.camera",
+        "file": "plugins/cordova-plugin-camera/www/Camera.js",
+        "pluginId": "cordova-plugin-camera",
+        "clobbers": [
+            "navigator.camera"
+        ]
+    },
+    {
+        "id": "cordova-plugin-camera.CameraPopoverHandle",
+        "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
+        "pluginId": "cordova-plugin-camera",
+        "clobbers": [
+            "CameraPopoverHandle"
+        ]
+    },
+    {
+        "id": "com.verso.cordova.clipboard.Clipboard",
+        "file": "plugins/com.verso.cordova.clipboard/www/clipboard.js",
+        "pluginId": "com.verso.cordova.clipboard",
+        "clobbers": [
+            "cordova.plugins.clipboard"
+        ]
+    },
+    {
+        "id": "cordova-plugin-console.console",
+        "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
+        "pluginId": "cordova-plugin-console",
+        "clobbers": [
+            "console"
+        ]
+    },
+    {
+        "id": "cordova-plugin-console.logger",
+        "file": "plugins/cordova-plugin-console/www/logger.js",
+        "pluginId": "cordova-plugin-console",
+        "clobbers": [
+            "cordova.logger"
+        ]
+    },
+    {
+        "id": "cordova-plugin-device.device",
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "pluginId": "cordova-plugin-device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "id": "cordova-plugin-dialogs.notification",
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "pluginId": "cordova-plugin-dialogs",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.DirectoryEntry",
+        "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.DirectoryEntry"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.DirectoryReader",
+        "file": "plugins/cordova-plugin-file/www/DirectoryReader.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.DirectoryReader"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.Entry",
+        "file": "plugins/cordova-plugin-file/www/Entry.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.Entry"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.File",
+        "file": "plugins/cordova-plugin-file/www/File.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.File"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.FileEntry",
+        "file": "plugins/cordova-plugin-file/www/FileEntry.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.FileEntry"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.FileError",
+        "file": "plugins/cordova-plugin-file/www/FileError.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.FileError"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.FileReader",
+        "file": "plugins/cordova-plugin-file/www/FileReader.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.FileReader"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.FileSystem",
+        "file": "plugins/cordova-plugin-file/www/FileSystem.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.FileSystem"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.FileUploadOptions",
+        "file": "plugins/cordova-plugin-file/www/FileUploadOptions.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.FileUploadOptions"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.FileUploadResult",
+        "file": "plugins/cordova-plugin-file/www/FileUploadResult.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.FileUploadResult"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.FileWriter",
+        "file": "plugins/cordova-plugin-file/www/FileWriter.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.FileWriter"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.Flags",
+        "file": "plugins/cordova-plugin-file/www/Flags.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.Flags"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.LocalFileSystem",
+        "file": "plugins/cordova-plugin-file/www/LocalFileSystem.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.LocalFileSystem"
+        ],
+        "merges": [
+            "window"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.Metadata",
+        "file": "plugins/cordova-plugin-file/www/Metadata.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.Metadata"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.ProgressEvent",
+        "file": "plugins/cordova-plugin-file/www/ProgressEvent.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.ProgressEvent"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.fileSystems",
+        "file": "plugins/cordova-plugin-file/www/fileSystems.js",
+        "pluginId": "cordova-plugin-file"
+    },
+    {
+        "id": "cordova-plugin-file.requestFileSystem",
+        "file": "plugins/cordova-plugin-file/www/requestFileSystem.js",
+        "pluginId": "cordova-plugin-file",
+        "clobbers": [
+            "window.requestFileSystem"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.resolveLocalFileSystemURI",
+        "file": "plugins/cordova-plugin-file/www/resolveLocalFileSystemURI.js",
+        "pluginId": "cordova-plugin-file",
+        "merges": [
+            "window"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.isChrome",
+        "file": "plugins/cordova-plugin-file/www/browser/isChrome.js",
+        "pluginId": "cordova-plugin-file",
+        "runs": true
+    },
+    {
+        "id": "cordova-plugin-file.iosFileSystem",
+        "file": "plugins/cordova-plugin-file/www/ios/FileSystem.js",
+        "pluginId": "cordova-plugin-file",
+        "merges": [
+            "FileSystem"
+        ]
+    },
+    {
+        "id": "cordova-plugin-file.fileSystems-roots",
+        "file": "plugins/cordova-plugin-file/www/fileSystems-roots.js",
+        "pluginId": "cordova-plugin-file",
+        "runs": true
+    },
+    {
+        "id": "cordova-plugin-file.fileSystemPaths",
+        "file": "plugins/cordova-plugin-file/www/fileSystemPaths.js",
+        "pluginId": "cordova-plugin-file",
+        "merges": [
+            "cordova"
+        ],
+        "runs": true
+    },
+    {
+        "id": "cordova-plugin-geolocation.Coordinates",
+        "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "Coordinates"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.PositionError",
+        "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "PositionError"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.Position",
+        "file": "plugins/cordova-plugin-geolocation/www/Position.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "Position"
+        ]
+    },
+    {
+        "id": "cordova-plugin-geolocation.geolocation",
+        "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
+        "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "id": "ionic-plugin-keyboard.keyboard",
+        "file": "plugins/ionic-plugin-keyboard/www/ios/keyboard.js",
+        "pluginId": "ionic-plugin-keyboard",
+        "clobbers": [
+            "cordova.plugins.Keyboard"
+        ]
+    },
+    {
+        "id": "cordova-plugin-media.MediaError",
+        "file": "plugins/cordova-plugin-media/www/MediaError.js",
+        "pluginId": "cordova-plugin-media",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "id": "cordova-plugin-media.Media",
+        "file": "plugins/cordova-plugin-media/www/Media.js",
+        "pluginId": "cordova-plugin-media",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
+        "id": "de.neofonie.cordova.plugin.progressview.ProgressView",
+        "file": "plugins/de.neofonie.cordova.plugin.progressview/www/ProgressView.js",
+        "pluginId": "de.neofonie.cordova.plugin.progressview",
+        "clobbers": [
+            "window.plugins.ProgressView"
+        ]
+    },
+    {
+        "id": "cordova-plugin-x-socialsharing.SocialSharing",
+        "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+        "pluginId": "cordova-plugin-x-socialsharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
+    },
+    {
+        "id": "cordova-plugin-statusbar.statusbar",
+        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+        "pluginId": "cordova-plugin-statusbar",
+        "clobbers": [
+            "window.StatusBar"
+        ]
+    },
+    {
+        "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
+        "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
+        "pluginId": "de.appplant.cordova.plugin.local-notification",
+        "clobbers": [
+            "cordova.plugins.notification.local",
+            "plugin.notification.local"
+        ]
+    },
+    {
+        "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Core",
+        "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-core.js",
+        "pluginId": "de.appplant.cordova.plugin.local-notification",
+        "clobbers": [
+            "cordova.plugins.notification.local.core",
+            "plugin.notification.local.core"
+        ]
+    },
+    {
+        "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Util",
+        "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-util.js",
+        "pluginId": "de.appplant.cordova.plugin.local-notification",
+        "merges": [
+            "cordova.plugins.notification.local.core",
+            "plugin.notification.local.core"
+        ]
+    },
+    {
+        "id": "siberian-plugin-offlinemode.OfflineMode",
+        "file": "plugins/siberian-plugin-offlinemode/www/OfflineMode.js",
+        "pluginId": "siberian-plugin-offlinemode",
+        "clobbers": [
+            "window.OfflineMode"
+        ]
+    },
+    {
+        "id": "cordova-plugin-iosrtc.Plugin",
+        "file": "plugins/cordova-plugin-iosrtc/dist/cordova-plugin-iosrtc.js",
+        "pluginId": "cordova-plugin-iosrtc",
+        "clobbers": [
+            "cordova.plugins.iosrtc"
+        ]
+    },
+    {
+        "id": "cordova-plugin-insomnia.Insomnia",
+        "file": "plugins/cordova-plugin-insomnia/www/Insomnia.js",
+        "pluginId": "cordova-plugin-insomnia",
+        "clobbers": [
+            "window.plugins.insomnia"
+        ]
+    },
+    {
+        "id": "cordova-plugin-music-controls.MusicControls",
+        "file": "plugins/cordova-plugin-music-controls/www/MusicControls.js",
+        "pluginId": "cordova-plugin-music-controls",
+        "clobbers": [
+            "MusicControls"
+        ]
+    }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-  "Chcp": "1.5.2",
-  "SplashScreen": "5.0.2",
-  "Push": "1.10.0",
-  "WebView": "1.0.0",
-  "Promises": "4.2.2",
-  "AdmobPro": "2.30.1",
-  "AppVersion": "0.1.8",
-  "AppEvent": "1.2.0",
-  "BarcodeScanner": "7.1.2",
-  "Camera": "4.0.3",
-  "Clipboard": "0.1.0",
-  "Device": "2.0.2",
-  "File": "6.0.1",
-  "Geolocation": "4.0.1",
-  "InAppBrowser": "3.0.0",
-  "Keyboard": "2.2.1",
-  "SocialSharing": "5.4.0",
-  "StatusBar": "2.4.1",
-  "LocalNotification": "0.8.4.1",
-  "OfflineMode": "1.0.0",
-  "Insomnia": "4.3.0",
-  "MusicControls": "2.1.4",
-  "Navigator": "0.1.0",
-  "Permissions": "1.0.0",
-  "Siberian": "1.0.0"
+    "com.transistorsoft.cordova.background-geolocation": "1.6.2",
+    "cordova-hot-code-push-plugin": "1.5.2",
+    "cordova-plugin-splashscreen": "4.0.0",
+    "phonegap-plugin-push": "1.10.0",
+    "cordova-plugin-app-version": "0.1.8",
+    "cordova-plugin-app-event": "1.2.0",
+    "com.keosu.cordova.stream": "0.1",
+    "cordova-plugin-background-fetch": "3.0.4",
+    "phonegap-plugin-barcodescanner": "6.0.6",
+    "cordova-plugin-compat": "1.1.0",
+    "cordova-plugin-camera": "2.3.1-dev",
+    "com.verso.cordova.clipboard": "0.1.0",
+    "cordova-plugin-console": "1.0.7-dev",
+    "cordova-plugin-device": "1.1.6-dev",
+    "cordova-plugin-dialogs": "1.3.3-dev",
+    "cordova-plugin-extension": "1.3.0",
+    "cordova-plugin-file": "4.3.3-dev",
+    "cordova-plugin-geolocation": "2.1.0",
+    "cordova-plugin-inappbrowser": "1.7.1-dev",
+    "ionic-plugin-keyboard": "2.2.1",
+    "cordova-plugin-media": "2.4.1",
+    "de.neofonie.cordova.plugin.progressview": "3.0.1",
+    "cordova-plugin-x-socialsharing": "5.0.12-dev",
+    "cordova-plugin-statusbar": "2.2.0",
+    "de.appplant.cordova.plugin.local-notification": "0.8.4.1",
+    "siberian-plugin-offlinemode": "1.0.0",
+    "cordova-plugin-iosrtc": "3.1.0",
+    "cordova-plugin-insomnia": "4.2.0",
+    "cordova-plugin-music-controls": "1.4.1",
+    "siberian": "1.0.0"
 };
 // BOTTOM OF METADATA
 });

@@ -2,45 +2,210 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport"
-              content="viewport-fit=cover, initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
         <meta http-equiv="Content-Security-Policy" content="
-            default-src * filesystem: cdvfile://* ws://* wss://* mailto:;
-            script-src * filesystem: cdvfile://* 'unsafe-inline' 'unsafe-eval';
+            default-src * ws://* wss://* ;
+            script-src * 'unsafe-inline' 'unsafe-eval';
             object-src *;
             style-src * 'unsafe-inline';
             img-src * data: android-webview-video-poster:;
             media-src *;
-            frame-src * gap://ready ws://* wss://* mailto:;
-            child-src * gap://ready ws://* wss://* mailto:;
+            frame-src * gap://ready ws://* wss://* ;
+            child-src * gap://ready ws://* wss://* ;
             font-src * data:;
-            connect-src * ws://* wss://* filesystem: cdvfile://*;">
-        <meta id="last_meta"
-              name="apple-mobile-web-app-capable"
-              content="yes">
-        <meta name="mobile-web-app-capable"
-              content="yes">
+            connect-src * ws://* wss://* ;">
+        <meta id="last_meta" name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
 
         <title></title>
+	
 
-        <!-- #APP_ONLY# -->
-        <script src="cdvfile://localhost/temporary/module.js"></script>
-        <!-- /#APP_ONLY# -->
+        <link href="lib/ionic/fonts/ionicons.woff" rel="prefetch">
+        <link href="lib/ionic/fonts/ionicons.eot" rel="prefetch">
+        <link href="lib/ionic/fonts/ionicons.svg" rel="prefetch">
+        <link href="lib/ionic/fonts/ionicons.ttf" rel="prefetch">
 
-        <script src="./dist/app.libs.min.js"></script>
-        <script src="./js/utils/languages.js"></script>
-        <script src="./js/utils/url.js"></script>
-        <script src="./cordova.js"></script>
-        <script src="./dist/libraries.bundle.min.js"></script>
-        <script src="./dist/app.min.js"></script>
-        <script src="./dist/templates.js"></script>
-        <script src="./dist/utils.bundle.min.js"></script>
-        <script src="./dist/services.bundle.min.js"></script>
-        <script src="./dist/directives.bundle.min.js"></script>
-        <script src="./dist/providers.bundle.min.js"></script>
-        <script src="./dist/features.bundle.min.js"></script>
-        <script src="./dist/onloadchunks.bundle.min.js"></script>
+        <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+        <link href="css/ionRadioFix.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/ionic.app.min.css" rel="stylesheet">
+        <link href="css/ng-animation.css" rel="stylesheet">
+        <link href="css/ion-gallery.css" rel="stylesheet">
+        <link href="css/angular-carousel.min.css" rel="stylesheet">
+        <link href="css/app.css" rel="stylesheet">
 
+        <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+        <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+        <script src="cordova.js"></script>
+
+        <script src="js/libraries/localforage.min.js"></script>
+        <script src="js/libraries/ionRadio.js"></script>
+        <script src="js/libraries/ion-gallery.min.js"></script>
+        <script src="js/libraries/angular-ios9-uiwebview.js"></script>
+        <script src="js/libraries/angular-carousel.js"></script>
+        <script src="js/libraries/angular-queue.js"></script>
+        <script src="js/libraries/angular-touch.min.js"></script>
+        <script src="js/libraries/lodash.min.js"></script>
+        <script src="js/libraries/ng-img-crop.js"></script>
+        <script src="js/libraries/ionic-zoom-view.js"></script>
+        <script src="js/utils/lodash.js"></script>
+        <script src="js/utils/languages.js"></script>
+        <script src="js/utils/url.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/utils/features.js"></script>
+        <script src="js/utils/form-post.js"></script>
+        <script src="js/services/url.js"></script>
+        <script src="js/directives/sb-events.js"></script>
+        <script src="js/directives/sb-background-image.js"></script>
+        <script src="js/directives/datetime.js"></script>
+        <script src="js/directives/sb-side-menu.js"></script>
+        <script src="js/directives/sb-pad.js"></script>
+        <script src="js/directives/sb-tabbar.js"></script>
+        <script src="js/directives/sb-maps.js"></script>
+        <script src="js/directives/sb-google-autocomplete.js"></script>
+        <script src="js/directives/sb-album-boxes.js"></script>
+        <script src="js/directives/sb-media-player-controls.js"></script>
+        <script src="js/directives/sb-nav-view.js"></script>
+        <script src="js/directives/sb-video.js"></script>
+        <script src="js/directives/sb-image.js"></script>
+        <script src="js/directives/sb-tooltip.js"></script>
+        <script src="js/directives/sb-cms.js"></script>
+        <script src="js/directives/sb-input-number.js"></script>
+        <script src="js/directives/sb-padlock.js"></script>
+        <script src="js/directives/sb-a-click.js"></script>
+
+        <script src="js/services/application.js"></script>
+        <script src="js/services/link.js"></script>
+        <script src="js/services/http-cache.js"></script>
+        <script src="js/services/country.js"></script>
+        <script src="js/services/google-maps.js"></script>
+        <script src="js/services/media-player.js"></script>
+        <script src="js/services/music-tracks-loader.js"></script>
+        <script src="js/services/translate.js"></script>
+        <script src="js/services/facebook-connect.js"></script>
+        <script src="js/services/connection.js"></script>
+        <script src="js/services/dialog.js"></script>
+        <script src="js/services/analytics.js"></script>
+        <script src="js/services/contextual-menu.js"></script>
+        <script src="js/services/social.js"></script>
+        <script src="js/services/l8.js"></script>
+        <script src="js/services/l10.js"></script>
+        <script src="js/services/l17.js"></script>
+        <script src="js/services/tmhDynamicLocale.js"></script>
+        <script src="js/services/admob-service.js"></script>
+
+        <script src="js/providers/homepage-layout.js"></script>
+        <script src="js/providers/sbhttp.js"></script>
+
+        <script src="js/controllers/homepage.js"></script>
+        <script src="js/controllers/newswall.js"></script>
+        <script src="js/controllers/wordpress.js"></script>
+        <script src="js/controllers/contact.js"></script>
+        <script src="js/controllers/image.js"></script>
+        <script src="js/controllers/rss.js"></script>
+        <script src="js/controllers/event.js"></script>
+        <script src="js/controllers/sourcecode.js"></script>
+        <script src="js/controllers/form.js"></script>
+        <script src="js/controllers/booking.js"></script>
+        <script src="js/controllers/set-meal.js"></script>
+        <script src="js/controllers/catalog.js"></script>
+        <script src="js/controllers/loyaltycard.js"></script>
+        <script src="js/controllers/customer.js"></script>
+        <script src="js/controllers/links.js"></script>
+        <script src="js/controllers/folder.js"></script>
+        <script src="js/controllers/cms.js"></script>
+        <script src="js/controllers/places.js"></script>
+        <script src="js/controllers/discount.js"></script>
+        <script src="js/controllers/weather.js"></script>
+        <script src="js/controllers/facebook.js"></script>
+        <script src="js/controllers/tip.js"></script>
+        <script src="js/controllers/topic.js"></script>
+        <script src="js/controllers/application.js"></script>
+        <script src="js/controllers/socialgaming.js"></script>
+        <script src="js/controllers/maps.js"></script>
+        <script src="js/controllers/media-player.js"></script>
+        <script src="js/controllers/music.js"></script>
+        <script src="js/controllers/radio.js"></script>
+        <script src="js/controllers/video.js"></script>
+        <script src="js/controllers/codescan.js"></script>
+        <script src="js/controllers/mcommerce/category.js"></script>
+        <script src="js/controllers/mcommerce/product.js"></script>
+        <script src="js/controllers/mcommerce/cart.js"></script>
+        <script src="js/controllers/mcommerce/sales/store.js"></script>
+        <script src="js/controllers/mcommerce/sales/customer.js"></script>
+        <script src="js/controllers/mcommerce/sales/delivery.js"></script>
+        <script src="js/controllers/mcommerce/sales/payment.js"></script>
+        <script src="js/controllers/mcommerce/sales/confirmation.js"></script>
+        <script src="js/controllers/mcommerce/sales/success.js"></script>
+        <script src="js/controllers/mcommerce/sales/history.js"></script>
+        <script src="js/controllers/padlock.js"></script>
+        <script src="js/controllers/push.js"></script>
+        <script src="js/controllers/inbox.js"></script>
+        <script src="js/controllers/mcommerce/sales/stripe.js"></script>
+        <script src="js/controllers/locked.js"></script>
+        <script src="js/controllers/privacy-policy.js"></script>
+        <script src="js/controllers/twitter.js"></script>
+
+        <script src="js/factory/newswall.js"></script>
+        <script src="js/factory/contact.js"></script>
+        <script src="js/factory/wordpress.js"></script>
+        <script src="js/factory/image.js"></script>
+        <script src="js/factory/event.js"></script>
+        <script src="js/factory/rss.js"></script>
+        <script src="js/factory/sourcecode.js"></script>
+        <script src="js/factory/form.js"></script>
+        <script src="js/factory/booking.js"></script>
+        <script src="js/factory/set-meal.js"></script>
+        <script src="js/factory/catalog.js"></script>
+        <script src="js/factory/loyaltycard.js"></script>
+        <script src="js/factory/customer.js"></script>
+        <script src="js/factory/links.js"></script>
+        <script src="js/factory/folder.js"></script>
+        <script src="js/factory/cms.js"></script>
+        <script src="js/factory/places.js"></script>
+        <script src="js/factory/search.js"></script>
+        <script src="js/factory/discount.js"></script>
+        <script src="js/factory/weather.js"></script>
+        <script src="js/factory/pages.js"></script>
+        <script src="js/factory/facebook.js"></script>
+        <script src="js/factory/tip.js"></script>
+        <script src="js/factory/topic.js"></script>
+        <script src="js/factory/tc.js"></script>
+        <script src="js/factory/socialgaming.js"></script>
+        <script src="js/factory/maps.js"></script>
+        <script src="js/factory/music.js"></script>
+        <script src="js/factory/radio.js"></script>
+        <script src="js/factory/video.js"></script>
+        <script src="js/factory/youtube.js"></script>
+        <script src="js/factory/mcommerce/category.js"></script>
+        <script src="js/factory/mcommerce/product.js"></script>
+        <script src="js/factory/mcommerce/cart.js"></script>
+        <script src="js/factory/mcommerce/sales/store.js"></script>
+        <script src="js/factory/mcommerce/sales/customer.js"></script>
+        <script src="js/factory/mcommerce/sales/delivery.js"></script>
+        <script src="js/factory/mcommerce/sales/payment.js"></script>
+        <script src="js/factory/padlock.js"></script>
+        <script src="js/factory/push.js"></script>
+        <script src="js/factory/inbox.js"></script>
+        <script src="js/factory/mcommerce/sales/stripe.js"></script>
+        <script src="js/factory/safe_popups.js"></script>
+        <script src="js/factory/twitter.js"></script>
+
+        <script src="js/filters/trusted-html.js"></script>
+        <script src="js/filters/number-fixed-len.js"></script>
+        <script src="js/filters/seconds-to-date-time.js"></script>
+        <script src="js/filters/translate.js"></script>
+        <script src="js/filters/chunk.js"></script>
+
+        <script src="js/constants/auth-events.js"></script>
+        <script src="js/constants/cache-events.js"></script>
+        <script src="js/constants/push-events.js"></script>
+        <script src="js/constants/padlock-events.js"></script>
+
+    
+		<script src="modules/job/controllers/job.js"></script>
+	
+		<script src="modules/job/factories/job.js"></script>
 	
 		<script src="modules/layout/home/layout_siberian_swipe/swiper/swiper.min.js"></script>
 	
@@ -48,46 +213,43 @@
 	
 		<script src="modules/layout/home/layout_siberian_18/hooks.js"></script>
 	
-		<script src="modules/layout/home/layout_siberian_year/hooks.js"></script><script src="./features/folder_v2/folder_v2.js" data-feature="folder_v2"></script>
+		<script src="modules/layout/home/layout_siberian_year/hooks.js"></script>
 	
-		<script src="./features/job/job.js" data-feature="job"></script>
+		<link href="modules/job/css/styles.css" rel="stylesheet">
 	
-		<script src="./features/places/places.js" data-feature="places"></script>
+		<link href="modules/layout/home/layout_siberian_swipe/swiper/swiper.min.css" rel="stylesheet">
 	
-		<script src="./features/wordpress_v2/wordpress_v2.js" data-feature="wordpress_v2"></script>
+		<link href="modules/layout/home/layout_siberian_swipe/style.css" rel="stylesheet">
 	
-		<script src="./features/fanwall2/fanwall2.js" data-feature="fanwall2"></script>
+		<link href="modules/layout/home/layout_siberian_18/style.css" rel="stylesheet">
 	
-        <script src="dist/app.libs-min.js"></script>
-        <script src="js/utils/languages.js"></script>
-        <script src="js/utils/url.js"></script>
-        <script src="cordova.js"></script>
-        <style type="text/css">.swiper-container{margin-left:auto;margin-right:auto;position:relative;overflow:hidden;z-index:1}.swiper-container-no-flexbox .swiper-slide{float:left}.swiper-container-vertical>.swiper-wrapper{-webkit-box-orient:vertical;-moz-box-orient:vertical;-ms-flex-direction:column;-webkit-flex-direction:column;flex-direction:column}.swiper-wrapper{position:relative;width:100%;height:100%;z-index:1;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-transition-property:-webkit-transform;-moz-transition-property:-moz-transform;-o-transition-property:-o-transform;-ms-transition-property:-ms-transform;transition-property:transform;-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box}.swiper-container-android .swiper-slide,.swiper-wrapper{-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-o-transform:translate(0,0);-ms-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.swiper-container-multirow>.swiper-wrapper{-webkit-box-lines:multiple;-moz-box-lines:multiple;-ms-flex-wrap:wrap;-webkit-flex-wrap:wrap;flex-wrap:wrap}.swiper-container-free-mode>.swiper-wrapper{-webkit-transition-timing-function:ease-out;-moz-transition-timing-function:ease-out;-ms-transition-timing-function:ease-out;-o-transition-timing-function:ease-out;transition-timing-function:ease-out;margin:0 auto}.swiper-slide{-webkit-flex-shrink:0;-ms-flex:0 0 auto;flex-shrink:0;width:100%;height:100%;position:relative}.swiper-container-autoheight,.swiper-container-autoheight .swiper-slide{height:auto}.swiper-container-autoheight .swiper-wrapper{-webkit-box-align:start;-ms-flex-align:start;-webkit-align-items:flex-start;align-items:flex-start;-webkit-transition-property:-webkit-transform,height;-moz-transition-property:-moz-transform;-o-transition-property:-o-transform;-ms-transition-property:-ms-transform;transition-property:transform,height}.swiper-container .swiper-notification{position:absolute;left:0;top:0;pointer-events:none;opacity:0;z-index:-1000}.swiper-wp8-horizontal{-ms-touch-action:pan-y;touch-action:pan-y}.swiper-wp8-vertical{-ms-touch-action:pan-x;touch-action:pan-x}.swiper-button-next,.swiper-button-prev{position:absolute;top:50%;width:27px;height:44px;margin-top:-22px;z-index:10;cursor:pointer;-moz-background-size:27px 44px;-webkit-background-size:27px 44px;background-size:27px 44px;background-position:center;background-repeat:no-repeat}.swiper-button-next.swiper-button-disabled,.swiper-button-prev.swiper-button-disabled{opacity:.35;cursor:auto;pointer-events:none}.swiper-button-prev,.swiper-container-rtl .swiper-button-next{background-image:url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E);left:10px;right:auto}.swiper-button-prev.swiper-button-black,.swiper-container-rtl .swiper-button-next.swiper-button-black{background-image:url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E)}.swiper-button-prev.swiper-button-white,.swiper-container-rtl .swiper-button-next.swiper-button-white{background-image:url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E)}.swiper-button-next,.swiper-container-rtl .swiper-button-prev{background-image:url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E);right:10px;left:auto}.swiper-button-next.swiper-button-black,.swiper-container-rtl .swiper-button-prev.swiper-button-black{background-image:url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E)}.swiper-button-next.swiper-button-white,.swiper-container-rtl .swiper-button-prev.swiper-button-white{background-image:url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E)}.swiper-pagination{position:absolute;text-align:center;-webkit-transition:.3s;-moz-transition:.3s;-o-transition:.3s;transition:.3s;-webkit-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0);z-index:10}.swiper-pagination.swiper-pagination-hidden{opacity:0}.swiper-container-horizontal>.swiper-pagination-bullets,.swiper-pagination-custom,.swiper-pagination-fraction{bottom:10px;left:0;width:100%}.swiper-pagination-bullet{width:8px;height:8px;display:inline-block;border-radius:100%;background:#000;opacity:.2}button.swiper-pagination-bullet{border:none;margin:0;padding:0;box-shadow:none;-moz-appearance:none;-ms-appearance:none;-webkit-appearance:none;appearance:none}.swiper-pagination-clickable .swiper-pagination-bullet{cursor:pointer}.swiper-pagination-white .swiper-pagination-bullet{background:#fff}.swiper-pagination-bullet-active{opacity:1;background:#007aff}.swiper-pagination-white .swiper-pagination-bullet-active{background:#fff}.swiper-pagination-black .swiper-pagination-bullet-active{background:#000}.swiper-container-vertical>.swiper-pagination-bullets{right:10px;top:50%;-webkit-transform:translate3d(0,-50%,0);-moz-transform:translate3d(0,-50%,0);-o-transform:translate(0,-50%);-ms-transform:translate3d(0,-50%,0);transform:translate3d(0,-50%,0)}.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet{margin:5px 0;display:block}.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{margin:0 5px}.swiper-pagination-progress{background:rgba(0,0,0,.25);position:absolute}.swiper-pagination-progress .swiper-pagination-progressbar{background:#007aff;position:absolute;left:0;top:0;width:100%;height:100%;-webkit-transform:scale(0);-ms-transform:scale(0);-o-transform:scale(0);transform:scale(0);-webkit-transform-origin:left top;-moz-transform-origin:left top;-ms-transform-origin:left top;-o-transform-origin:left top;transform-origin:left top}.swiper-container-rtl .swiper-pagination-progress .swiper-pagination-progressbar{-webkit-transform-origin:right top;-moz-transform-origin:right top;-ms-transform-origin:right top;-o-transform-origin:right top;transform-origin:right top}.swiper-container-horizontal>.swiper-pagination-progress{width:100%;height:4px;left:0;top:0}.swiper-container-vertical>.swiper-pagination-progress{width:4px;height:100%;left:0;top:0}.swiper-pagination-progress.swiper-pagination-white{background:rgba(255,255,255,.5)}.swiper-pagination-progress.swiper-pagination-white .swiper-pagination-progressbar{background:#fff}.swiper-pagination-progress.swiper-pagination-black .swiper-pagination-progressbar{background:#000}.swiper-container-3d{-webkit-perspective:1200px;-moz-perspective:1200px;-o-perspective:1200px;perspective:1200px}.swiper-container-3d .swiper-cube-shadow,.swiper-container-3d .swiper-slide,.swiper-container-3d .swiper-slide-shadow-bottom,.swiper-container-3d .swiper-slide-shadow-left,.swiper-container-3d .swiper-slide-shadow-right,.swiper-container-3d .swiper-slide-shadow-top,.swiper-container-3d .swiper-wrapper{-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;transform-style:preserve-3d}.swiper-container-3d .swiper-slide-shadow-bottom,.swiper-container-3d .swiper-slide-shadow-left,.swiper-container-3d .swiper-slide-shadow-right,.swiper-container-3d .swiper-slide-shadow-top{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:10}.swiper-container-3d .swiper-slide-shadow-left{background-image:-webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.5)),to(rgba(0,0,0,0)));background-image:-webkit-linear-gradient(right,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:-moz-linear-gradient(right,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:-o-linear-gradient(right,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:linear-gradient(to left,rgba(0,0,0,.5),rgba(0,0,0,0))}.swiper-container-3d .swiper-slide-shadow-right{background-image:-webkit-gradient(linear,right top,left top,from(rgba(0,0,0,.5)),to(rgba(0,0,0,0)));background-image:-webkit-linear-gradient(left,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:-moz-linear-gradient(left,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:-o-linear-gradient(left,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:linear-gradient(to right,rgba(0,0,0,.5),rgba(0,0,0,0))}.swiper-container-3d .swiper-slide-shadow-top{background-image:-webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,.5)),to(rgba(0,0,0,0)));background-image:-webkit-linear-gradient(bottom,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:-moz-linear-gradient(bottom,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:-o-linear-gradient(bottom,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:linear-gradient(to top,rgba(0,0,0,.5),rgba(0,0,0,0))}.swiper-container-3d .swiper-slide-shadow-bottom{background-image:-webkit-gradient(linear,left bottom,left top,from(rgba(0,0,0,.5)),to(rgba(0,0,0,0)));background-image:-webkit-linear-gradient(top,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:-moz-linear-gradient(top,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:-o-linear-gradient(top,rgba(0,0,0,.5),rgba(0,0,0,0));background-image:linear-gradient(to bottom,rgba(0,0,0,.5),rgba(0,0,0,0))}.swiper-container-coverflow .swiper-wrapper,.swiper-container-flip .swiper-wrapper{-ms-perspective:1200px}.swiper-container-cube,.swiper-container-flip{overflow:visible}.swiper-container-cube .swiper-slide,.swiper-container-flip .swiper-slide{pointer-events:none;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;backface-visibility:hidden;z-index:1}.swiper-container-cube .swiper-slide .swiper-slide,.swiper-container-flip .swiper-slide .swiper-slide{pointer-events:none}.swiper-container-cube .swiper-slide-active,.swiper-container-cube .swiper-slide-active .swiper-slide-active,.swiper-container-flip .swiper-slide-active,.swiper-container-flip .swiper-slide-active .swiper-slide-active{pointer-events:auto}.swiper-container-cube .swiper-slide-shadow-bottom,.swiper-container-cube .swiper-slide-shadow-left,.swiper-container-cube .swiper-slide-shadow-right,.swiper-container-cube .swiper-slide-shadow-top,.swiper-container-flip .swiper-slide-shadow-bottom,.swiper-container-flip .swiper-slide-shadow-left,.swiper-container-flip .swiper-slide-shadow-right,.swiper-container-flip .swiper-slide-shadow-top{z-index:0;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;backface-visibility:hidden}.swiper-container-cube .swiper-slide{visibility:hidden;-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0;width:100%;height:100%}.swiper-container-cube.swiper-container-rtl .swiper-slide{-webkit-transform-origin:100% 0;-moz-transform-origin:100% 0;-ms-transform-origin:100% 0;transform-origin:100% 0}.swiper-container-cube .swiper-slide-active,.swiper-container-cube .swiper-slide-next,.swiper-container-cube .swiper-slide-next+.swiper-slide,.swiper-container-cube .swiper-slide-prev{pointer-events:auto;visibility:visible}.swiper-container-cube .swiper-cube-shadow{position:absolute;left:0;bottom:0;width:100%;height:100%;background:#000;opacity:.6;-webkit-filter:blur(50px);filter:blur(50px);z-index:0}.swiper-container-fade.swiper-container-free-mode .swiper-slide{-webkit-transition-timing-function:ease-out;-moz-transition-timing-function:ease-out;-ms-transition-timing-function:ease-out;-o-transition-timing-function:ease-out;transition-timing-function:ease-out}.swiper-container-fade .swiper-slide{pointer-events:none;-webkit-transition-property:opacity;-moz-transition-property:opacity;-o-transition-property:opacity;transition-property:opacity}.swiper-container-fade .swiper-slide .swiper-slide{pointer-events:none}.swiper-container-fade .swiper-slide-active,.swiper-container-fade .swiper-slide-active .swiper-slide-active{pointer-events:auto}.swiper-zoom-container{width:100%;height:100%;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-pack:center;-moz-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;text-align:center}.swiper-zoom-container>canvas,.swiper-zoom-container>img,.swiper-zoom-container>svg{max-width:100%;max-height:100%;object-fit:contain}.swiper-scrollbar{border-radius:10px;position:relative;-ms-touch-action:none;background:rgba(0,0,0,.1)}.swiper-container-horizontal>.swiper-scrollbar{position:absolute;left:1%;bottom:3px;z-index:50;height:5px;width:98%}.swiper-container-vertical>.swiper-scrollbar{position:absolute;right:3px;top:1%;z-index:50;width:5px;height:98%}.swiper-scrollbar-drag{height:100%;width:100%;position:relative;background:rgba(0,0,0,.5);border-radius:10px;left:0;top:0}.swiper-scrollbar-cursor-drag{cursor:move}.swiper-lazy-preloader{width:42px;height:42px;position:absolute;left:50%;top:50%;margin-left:-21px;margin-top:-21px;z-index:10;-webkit-transform-origin:50%;-moz-transform-origin:50%;transform-origin:50%;-webkit-animation:swiper-preloader-spin 1s steps(12,end) infinite;-moz-animation:swiper-preloader-spin 1s steps(12,end) infinite;animation:swiper-preloader-spin 1s steps(12,end) infinite}.swiper-lazy-preloader:after{display:block;content:"";width:100%;height:100%;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%236c6c6c'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(60%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(90%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(120%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(150%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.37'%20transform%3D'rotate(180%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.46'%20transform%3D'rotate(210%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.56'%20transform%3D'rotate(240%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.66'%20transform%3D'rotate(270%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.75'%20transform%3D'rotate(300%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");background-position:50%;-webkit-background-size:100%;background-size:100%;background-repeat:no-repeat}.swiper-lazy-preloader-white:after{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%23fff'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(60%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(90%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(120%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(150%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.37'%20transform%3D'rotate(180%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.46'%20transform%3D'rotate(210%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.56'%20transform%3D'rotate(240%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.66'%20transform%3D'rotate(270%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.75'%20transform%3D'rotate(300%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E")}@-webkit-keyframes swiper-preloader-spin{100%{-webkit-transform:rotate(360deg)}}@keyframes swiper-preloader-spin{100%{transform:rotate(360deg)}}.layout.layout_siberian_swipe .swiper-container{position:absolute;top:0;left:0;bottom:0;width:100vw;padding-top:50px;padding-bottom:50px}.layout.layout_siberian_swipe .swiper-slide{background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important;margin:5vw;width:90vw;height:60vw;padding:0}.layout.layout_siberian_swipe .swiper-slide h2{font-size:3.5vh;width:100%;text-align:center;padding-top:30vw;margin-top:-1.75vh}.layout.layout_siberian_swipe .swiper-slide p{font-size:2vh;width:100%;text-align:center}.layout.layout_siberian_swipe .item.homepage-custom.border-custom img{height:34vw;width:34vw;margin:0 23vw}.layout.layout_siberian_swipe .swiper-slide.default h2{font-size:3.5vh;width:100%;padding-top:44vw;text-align:center}.layout.layout_siberian_swipe .swiper-slide.default p{font-size:2vh;width:100%;text-align:center}.layout.layout_siberian_swipe .swiper-slide.default{background-position:50% 26%!important;background-size:34%!important}@media (orientation:landscape){.layout.layout_siberian_swipe .swiper-slide{margin:5vw 20vw;width:60vw;height:60vh}.layout.layout_siberian_swipe .swiper-slide h2{font-size:3.5vw;padding-top:30vh;margin-top:-1.75vw}.layout.layout_siberian_swipe .swiper-slide.default h2{font-size:3.5vw;padding-top:46vh}.layout.layout_siberian_swipe .swiper-slide p{font-size:2vw;width:100%;text-align:center}.layout.layout_siberian_swipe .swiper-slide.default p{font-size:2vw}}.layout.layout_siberian_18 .list.row{margin-bottom:5px;padding:0}.layout.layout_siberian_18 .list.row .item{height:250px}.layout.layout_siberian_18 .list.row .item-image{height:60%;background-repeat:no-repeat;background-position:center center;background-size:cover}.layout.layout_siberian_18 .list.row .item-content{height:40%}.layout.layout_siberian_18 .item h2{margin-top:10px}.layout.layout_siberian_18 .item{margin:0;border-width:0}.layout.layout_siberian_18 .no-border{border:none!important}.layout.layout_siberian_18 .badge-custom{top:20px;right:16px;padding:6px 8px;font-size:16px}.layout.layout_siberian_18{position:absolute;height:80vh;padding-left:12vw;padding-right:12vw;top:0}.layout.layout_siberian_18 ion-scroll{position:absolute;width:74vw;height:75%;bottom:0}.layout.layout_siberian_18 .border-custom.border-top{border-top-width:1px}.layout.layout_siberian_18 .border-custom.border-right{border-right-width:1px}.layout.layout_siberian_18 .border-custom.border-bottom{border-bottom-width:1px}.layout.layout_siberian_18 .border-custom.border-left{border-left-width:1px}.layout.layout_siberian_18 .label-right{text-align:right}.layout.layout_siberian_18 .label-left{text-align:left}.layout.layout_siberian_18 .title-lowcase{text-transform:inherit}.layout.layout_siberian_18 .title-uppercase{text-transform:uppercase}.layout.layout_siberian_year .list.row{margin-bottom:5px;padding:0}.layout.layout_siberian_year .list.row .item{height:250px}.layout.layout_siberian_year .list.row .item-image{height:60%;background-repeat:no-repeat;background-position:center center;background-size:cover}.layout.layout_siberian_year .list.row .item-content{height:40%}.layout.layout_siberian_year .item h2{position:absolute;bottom:-20px;width:100%}.layout.layout_siberian_year .item{margin:0;border-width:0;height:100%;background-position:50% 50%;background-size:50%;padding:0;background-repeat:no-repeat;overflow:visible}.layout.layout_siberian_year .no-border{border:none!important}.layout.layout_siberian_year .badge-custom{top:20px;right:16px;padding:6px 8px;font-size:16px}.layout_siberian_year .homepage-custom.translucent{border-radius:50%}.layout.layout_siberian_year{position:absolute;height:100%;top:0;width:100%;left:0}.layout.layout_siberian_year ion-scroll{position:absolute;width:100%;height:100%;bottom:0}.layout.layout_siberian_year .border-custom.border-top{border-top-width:1px}.layout.layout_siberian_year .border-custom.border-right{border-right-width:1px}.layout.layout_siberian_year .border-custom.border-bottom{border-bottom-width:1px}.layout.layout_siberian_year .border-custom.border-left{border-left-width:1px}.layout.layout_siberian_year .label-right{text-align:right}.layout.layout_siberian_year .label-left{text-align:left}.layout.layout_siberian_year .title-lowcase{text-transform:inherit}.layout.layout_siberian_year .title-uppercase{text-transform:uppercase}.layout.layout_siberian_year .menu-item,.layout.layout_siberian_year .menu-open-button{border-radius:100%;width:80px;height:80px;margin-left:-40px;position:absolute;color:#FFF;text-align:center;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);-webkit-transition:-webkit-transform ease-out 200ms;transition:-webkit-transform ease-out 200ms;transition:transform ease-out 200ms;transition:transform ease-out 200ms,-webkit-transform ease-out 200ms;top:46vh;left:50%}.layout.layout_siberian_year .menu-open{display:none}.layout.layout_siberian_year .lines{width:25px;height:3px;background:#596778;display:block;position:absolute;top:50%;left:50%;margin-left:-12.5px;margin-top:-1.5px;-webkit-transition:-webkit-transform 200ms;transition:-webkit-transform 200ms;transition:transform 200ms;transition:transform 200ms,-webkit-transform 200ms}.layout.layout_siberian_year .line-1{-webkit-transform:translate3d(0,-8px,0);transform:translate3d(0,-8px,0)}.layout.layout_siberian_year .line-2{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.layout.layout_siberian_year .line-3{-webkit-transform:translate3d(0,8px,0);transform:translate3d(0,8px,0)}.layout.layout_siberian_year .menu-open:checked+.menu-open-button .line-1{-webkit-transform:translate3d(0,0,0) rotate(45deg);transform:translate3d(0,0,0) rotate(45deg)}.layout.layout_siberian_year .menu-open:checked+.menu-open-button .line-2{-webkit-transform:translate3d(0,0,0) scale(.1,1);transform:translate3d(0,0,0) scale(.1,1)}.layout.layout_siberian_year .menu-open:checked+.menu-open-button .line-3{-webkit-transform:translate3d(0,0,0) rotate(-45deg);transform:translate3d(0,0,0) rotate(-45deg)}.layout.layout_siberian_year .menu{margin:auto;position:absolute;top:0;bottom:0;left:0;right:0;width:80px;height:80px;text-align:center;box-sizing:border-box;font-size:26px}.layout.layout_siberian_year .menu-item:nth-child(3){-webkit-transition-duration:180ms;transition-duration:180ms}.layout.layout_siberian_year .menu-item:nth-child(4){-webkit-transition-duration:180ms;transition-duration:180ms}.layout.layout_siberian_year .menu-item:nth-child(5){-webkit-transition-duration:180ms;transition-duration:180ms}.layout.layout_siberian_year .menu-item:nth-child(6){-webkit-transition-duration:180ms;transition-duration:180ms}.layout.layout_siberian_year .menu-item:nth-child(7){-webkit-transition-duration:180ms;transition-duration:180ms}.layout.layout_siberian_year .menu-item:nth-child(8){-webkit-transition-duration:180ms;transition-duration:180ms}.layout.layout_siberian_year .menu-item:nth-child(9){-webkit-transition-duration:180ms;transition-duration:180ms}.layout.layout_siberian_year .menu-open-button{z-index:2;-webkit-transition-timing-function:cubic-bezier(.175,.885,.32,1.275);transition-timing-function:cubic-bezier(.175,.885,.32,1.275);-webkit-transition-duration:400ms;transition-duration:400ms;-webkit-transform:scale(1.1,1.1) translate3d(0,0,0);transform:scale(1.1,1.1) translate3d(0,0,0);cursor:pointer;box-shadow:3px 3px 0 0 rgba(0,0,0,.14)}.layout.layout_siberian_year .menu-open-button:hover{-webkit-transform:scale(1.2,1.2) translate3d(0,0,0);transform:scale(1.2,1.2) translate3d(0,0,0)}.layout.layout_siberian_year .menu-open:checked+.menu-open-button{-webkit-transition-timing-function:linear;transition-timing-function:linear;-webkit-transition-duration:200ms;transition-duration:200ms;-webkit-transform:scale(.8,.8) translate3d(0,0,0);transform:scale(.8,.8) translate3d(0,0,0)}.layout.layout_siberian_year .menu-open:checked~.menu-item{-webkit-transition-timing-function:cubic-bezier(.935,0,.34,1.33);transition-timing-function:cubic-bezier(.935,0,.34,1.33)}.layout.layout_siberian_year .menu-open:checked~.menu-item:nth-child(3){transition-duration:180ms;-webkit-transition-duration:180ms;-webkit-transform:translate3d(.08361px,-104.99997px,0);transform:translate3d(.08361px,-104.99997px,0)}.layout.layout_siberian_year .menu-open:checked~.menu-item:nth-child(4){transition-duration:280ms;-webkit-transition-duration:280ms;-webkit-transform:translate3d(90.9466px,-52.47586px,0);transform:translate3d(90.9466px,-52.47586px,0)}.layout.layout_siberian_year .menu-open:checked~.menu-item:nth-child(5){transition-duration:380ms;-webkit-transition-duration:380ms;-webkit-transform:translate3d(90.9466px,52.47586px,0);transform:translate3d(90.9466px,52.47586px,0)}.layout.layout_siberian_year .menu-open:checked~.menu-item:nth-child(6){transition-duration:480ms;-webkit-transition-duration:480ms;-webkit-transform:translate3d(.08361px,104.99997px,0);transform:translate3d(.08361px,104.99997px,0)}.layout.layout_siberian_year .menu-open:checked~.menu-item:nth-child(7){transition-duration:580ms;-webkit-transition-duration:580ms;-webkit-transform:translate3d(-90.86291px,52.62064px,0);transform:translate3d(-90.86291px,52.62064px,0)}.layout.layout_siberian_year .menu-open:checked~.menu-item:nth-child(8){transition-duration:680ms;-webkit-transition-duration:680ms;-webkit-transform:translate3d(-91.03006px,-52.33095px,0);transform:translate3d(-91.03006px,-52.33095px,0)}.layout.layout_siberian_year .menu-open:checked~.menu-item:nth-child(9){transition-duration:780ms;-webkit-transition-duration:780ms;-webkit-transform:translate3d(-.25084px,-104.9997px,0);transform:translate3d(-.25084px,-104.9997px,0)}.layout.layout_siberian_year .menu-item h2{transition-duration:120ms;-webkit-transition-duration:120ms;-webkit-transform:translate3d(0,-40px,0);transform:translate3d(0,-40px,0);opacity:0}.layout.layout_siberian_year .menu-open:checked~.menu-item h2{transition-duration:120ms;-webkit-transition-duration:120ms;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);opacity:1}.layout.layout_siberian_year .menu-item.menu-top{top:24%}.layout.layout_siberian_year .menu-item.menu-middle{top:37%}.layout.layout_siberian_year .menu-item.menu-bottom{top:64%}.layout.layout_siberian_year .title-lowcase{text-transform:inherit}.layout.layout_siberian_year .title-uppercase{text-transform:uppercase}.layout.layout_siberian_year .menu-item a h2.titlehidden{display:none}.layout.layout_siberian_year .menu-item a h2.titlevisible{display:block}.layout.layout_siberian_year.modal{opacity:1}.layout.layout_siberian_year.modal ul{width:100%;display:inline-block}.layout.layout_siberian_year.modal li{position:relative;float:left}.layout.layout_siberian_year.modal .items{margin:0 auto;padding:16% 10% 4% 10%;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;width:80px;height:80px;background-position:center;background-size:50%;background-repeat:no-repeat}.layout.layout_siberian_year.modal .icon{font-size:4em}.layout.layout_siberian_year.modal img{width:30px;height:30px}.layout.layout_siberian_year.modal p{line-height:20px;height:20px;overflow:hidden}.layout.layout_siberian_year .no-border{border-top:none;box-shadow:none}@media screen and (min-width:680px){.layout.layout_siberian_year.modal{right:0!important;left:0!important}}</style>
-    </head>
+		<link href="modules/layout/home/layout_siberian_year/style.css" rel="stylesheet">
 	
-    <body ng-app="starter"
-          class="platform-browser platform-cordova platform-webview">
+		<script src="modules/socketio/libraries/socket.io.min.js"></script>
+	
+		<script src="modules/taxi_ride/controllers/taxi_ride_2checkout.js"></script>
+	
+		<script src="modules/taxi_ride/controllers/taxi_ride_map.js"></script>
+	
+		<script src="modules/taxi_ride/controllers/taxi_ride_customfields_modal.js"></script>
+	
+		<script src="modules/taxi_ride/controllers/taxi_ride_paymentssettings_modal.js"></script>
+	
+		<script src="modules/taxi_ride/controllers/taxi_ride_history_modal.js"></script>
+	
+		<script src="modules/taxi_ride/controllers/taxi_ride_estimate_ride_modal.js"></script>
+	
+		<script src="modules/taxi_ride/controllers/taxi_ride_driver_waiting_modal.js"></script>
+	
+		<script src="modules/taxi_ride/factories/taxi_ride.js"></script>
+	
+		<script src="modules/layout/home/layout_cinema/hooks.js"></script>
+	
+		<link href="modules/layout/home/layout_cinema/style.css" rel="stylesheet">
+	</head>
+    <body ng-app="starter" class="platform-browser platform-cordova platform-webview platform-ios-noads platform-ios platform-cordova platform-webview">
 
         <!-- Global layout handler -->
         <sb-side-menu ng-if="app_is_loaded"></sb-side-menu>
-
-        <div class="ui-background-loader uil-squares-css"
-             ng-hide="!ui_background_loader"
-             ng-click="openLoaderProgress()"><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
-        <div class="ui-progress-view"
-             ng-hide="!ui_progress_view">
-            <p>{{ "Downloading..." | translate }}</p>
-            <div class="ui-progress-view-circle"></div>
-            <p ng-click="backgroundLoaderProgress()">{{ "Tap to download in background" | translate }}</p>
-        </div>
-
-        <!-- NoScript javascript alert. -->
-        <noscript><div class="javascript-required"><div class="javascript-header">Application</div><div class="javascript-message"><h3>JavaScript Required</h3><p>We're sorry, but this application requires JavaScript in order to work properly, please enable it and reload this page.</p><a class="javascript-button" href="./index-prod.html">Reload</a><div class="javascript-clear"></div></div></div><style type="text/css">div.ui-background-loader {display: none;}div.javascript-required {top: 0;left: 0;position: absolute;width: 100%;height: 100%;color: #333333;background-color: #f8f8f8;}div.javascript-header {width: 100%;height: 40px;font-size: 22px;text-align: center;color: #333333;line-height: 39px;background-color: #0099c7;border-bottom: 1px solid #ffffff;color: white;box-shadow: 0px 1px 1px grey;font-weight: bold;}div.javascript-message {width: 80vw;max-width: 600px;margin: 0 auto;margin-top: 20vh;padding: 40px;border: 1px solid lightgrey;background-color: #f0f0f0;color: #333333;box-shadow: 1px 1px 1px grey;border-radius: 2px;}div.javascript-clear {clear: both;}a.javascript-button {padding: 8px;text-decoration: none;color: white;background-color: #0099c7;border: 1px solid #0088b6;border-radius: 2px;font-weight: 15px;  text-transform: uppercase;  margin-top: 20px;  float: right;  }</style></noscript>
-
-        <div class="previewer-load"
-             ng-show="previewerNotice">{{ "Triple tap to close the preview" | translate }}</div>
-
-        <link href="./dist/app.bundle.min.css"
-              rel="stylesheet" />
     </body>
 </html>
