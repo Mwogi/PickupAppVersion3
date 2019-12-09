@@ -32,6 +32,20 @@
 #import "PhoneVerificationViewController.h"
 @import Firebase;
 
+/* @implementation NSURL (Additions)
+
+- (NSURL *)URLByAppendingQueryString:(NSString *)queryString {
+    if (![queryString length]) {
+        return self;
+    }
+    NSString *URLString = [[NSString alloc] initWithFormat:@"%@%@%@", [self absoluteString],
+    [self query] ? @"&" : @"?", queryString];
+    NSURL *theURL = [NSURL URLWithString:URLString];
+    [URLString release];
+     return theURL;
+}
+@end */
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
@@ -57,11 +71,20 @@
          //Set your app's start page by setting the <content src='foo.html' /> tag in config.xml.
          //If necessary, uncomment the line below to override it.
          self.viewController.startPage = @"index.html";
+         //self.viewController.startPage = @"";
          //NOTE: To customize the view's frame size (which defaults to full screen), override
          //[self.viewController viewWillAppear:] in your view controller.
 
         self.window.rootViewController = self.viewController;
         [self.window makeKeyAndVisible];
+
+        //NEW CODE ADDITION FOR PASSING PARAMETERS
+        /* NSString* newQueryString = @"query1=value1&query2=value2&query3=value3";
+        NSURL *newurl = [NSURL fileURLWithPath:[[NSBundle mainBundle]
+        pathForResource:@"index" ofType:@"html" inDirectory:@"www"]];
+
+        newurl = [newurl URLByAppendingQueryString:newQueryString];
+        [self.viewController.webView loadRequest:[NSURLRequest requestWithURL:newurl]]; */
     }
     [FIRApp configure];
     /** Allow for Audio background playing */

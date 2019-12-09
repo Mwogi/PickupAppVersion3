@@ -81,9 +81,14 @@
 
 -(void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    [self showPhoneVerifyVC];
-  });
+  FIRUser *user = [FIRAuth auth].currentUser;
+  if (user) {
+      //User still logged in.
+  }else{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showPhoneVerifyVC];
+    });
+  }
 }
 
 -(void)showPhoneVerifyVC {

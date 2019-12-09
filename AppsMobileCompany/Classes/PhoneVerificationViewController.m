@@ -71,7 +71,7 @@
          self.isPhoneNumberMode = false;
          [self configureUI];
        } else {
-         [self showAlertWithText:@"There was an error sending code, Please check the phone number.\n Please Include Country code."];
+         [self showAlertWithText:@"There was an error sending code, Please check the phone number.\n"];
          self.isPhoneNumberMode = true;
          [self configureUI];
          NSLog(@"%@", error.localizedDescription);
