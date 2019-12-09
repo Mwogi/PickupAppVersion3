@@ -114,6 +114,7 @@
 -(void)configureUI {
 
   if (self.isPhoneNumberMode) {
+    //Testing
     _phoneNumberTextField.text = nil;
     _phoneNumberTextField.textContentType = UITextContentTypeTelephoneNumber;
     self.lblLoginMessage.text = @"Login\nEnter Phone Number and press Send Code";
