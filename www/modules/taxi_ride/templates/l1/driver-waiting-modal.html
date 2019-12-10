@@ -1,0 +1,120 @@
+<ion-modal-view class="taxiride driver-modal homepage-custom" ng-controller="TaxiRideDriverWaitingModalController">
+    <ion-header-bar class="bar-custom">
+		<h1 class="title">{{ 'Choose a driver' | translate }}</h1>
+		<span class="closebtnMeter" ng-click="close()">&times;</i></span>
+    </ion-header-bar>
+    <ion-content>
+
+        <div class="list">
+            <div class="item item-custom item-text-wrap" ng-show="is_looking_for_drivers">
+                <div class="row">
+                    <div class="col col-75 justify">
+                        {{ "Currently looking for drivers..." | translate }}
+                    </div>
+                    <div class="col col-25 timer">
+                        <span>{{ timer }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="item item-custom item-text-wrap" ng-show="!is_looking_for_drivers && !no_driver_answer">
+                <div class="row">
+                    <div class="col col-75 justify">
+                        {{ "Driver search ended. Please choose a driver below to start your ride." }}
+                    </div>
+                    <div class="col col-25 timer">
+                        <span>{{ select_timer }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item item-custom item-text-wrap">
+                {{prices_disclamer}}
+            </div>
+        </div>
+        <div>
+            <div class="list card"  ng-show="can_select_driver && drivers.length">
+                <div class="item item-custom item-icon-left" ng-repeat="driver in drivers">
+                    <!-- <i class="icon ion-android-car"></i>-->
+					<i>
+						<!-- <a href="javascript:void(0)" class="image_rating">
+							<img ng-src="{{driver.userImage}}" class="image_rating" />
+						</a>
+						<a href="javascript:void(0)" class="ratingview" >
+							<i class="smallicon icon ion-ios-star-half">{{driver.userRate}}</i> 
+						</a>-->
+						<img ng-src="{{driver.userImage}}" class="image_rating" />
+						<i class="smallicon ion-ios-star-half">{{driver.userRate}}</i> 
+					</i>
+                    <h2>{{ driver.firstname }} {{ driver.lastname }}</h2>
+                    <p>{{ "Total price:" | translate }} {{ driver.price | currency:currency_symbol:2 }}</p>
+                    <p>{{ "Arrival Time:" | translate }} {{ driver.eta.text }}</p>
+                    <!-- <p>{{ "Base fare:" | translate }} {{ driver.base_fare | currency:currency_symbol:2 }}</p>
+                    <p ng-show="driver.distance_fare">{{ "Distance fare:" | translate }} {{ driver.distance_fare | currency:currency_symbol:2 }}</p>
+                    <p ng-show="driver.time_fare">{{ "Time fare:" | translate }} {{ driver.time_fare | currency:currency_symbol:2 }}</p> -->
+                    <p><button class="button button-custom button-full icon-right ion-chevron-right" ng-click="selectDriver(driver)">{{ "Choose me!" | translate }}</button></p>
+                </div>
+            </div>
+            <div class="item item-custom item-text-wrap justify" ng-show="!drivers.length && !no_driver_answer && is_looking_for_drivers">
+                {{ "No driver has accepted your request for now. Please wait." | translate }}
+            </div>
+            <div class="item item-custom item-text-wrap justify" ng-show="no_driver_answer">
+                {{ "Sorry, but no driver can pick you up. Please try again in a few minutes." | translate }}
+            </div>
+            <div class="item item-custom item-text-wrap justify" ng-show="!can_select_driver">
+                {{ "Sorry, you haven't selected a driver and you run out of time. Try again." | translate }}
+            </div>
+        </div>
+
+    </ion-content>
+</ion-modal-view>
+<style>
+    .justify{
+        text-align:justify;
+    }
+    .timer{
+        font-size:35px;
+        font-weight:bold;
+        text-align:center;
+    }
+	.image_rating {
+		z-index: 10;
+		left: 0px;
+		right: auto;
+		top: auto;
+		bottom: auto;
+		border: none;
+		font-size: 1.5em;
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+		margin: auto;
+		-webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		-moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		position: absolute;
+	 }
+	 .ratingview {
+		z-index: 12;
+		font-weight: bolder;
+		height: 10px
+		horizontal-align: center;
+		left: auto;
+		right: auto;
+		margin-top: 55px;
+		-webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		-moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		position: absolute;
+		font-size: 12px;
+		padding: 0 2px;
+		min-height: 0px;
+		line-height: 10px;
+		border-color: #141514;
+		background-color: #ffffff;
+		color: #0c0c0c;
+	 }
+	 .smallicon .ion-ios-star-half {
+		font-size: 10px;
+	 }
+</style>

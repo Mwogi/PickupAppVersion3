@@ -1,0 +1,227 @@
+<ion-modal-view class="taxiride estimate-modal homepage-custom" ng-controller="TaxiRideEstimateRideModalController">
+    <ion-header-bar class="bar-custom">
+        <h1 class="title">{{ 'Request a Ride' | translate }}</h1>
+		<span class="closebtnMeter" ng-click="close(1)">&times;</i></span> 
+    </ion-header-bar>
+    <ion-content>
+		<div id="floating_infos" class="list" delegate-handle="modalContent">
+            <!--<div ng-show="info.step_1">
+                <div class="item item-custom item-divider">
+                    {{ "Choose your vehicle type" | translate }}
+                </div>
+                <ion-radio ng-model="info.type_choice" ng-value="type.id" ng-repeat="type in vehicule_list" class="radio-custom item-text-wrap item item-thumbnail-left item-text-wrap">
+                    <img ng-src="{{type.picture}}" width="32" height="32" > {{ type.name }}
+                </ion-radio>
+                <div class="item item-custom item-text-wrap" ng-show="!vehicule_list.length">
+                    {{ "No vehicle type found." | translate }}
+                </div>
+                <button ng-show="vehicule_list.length" class="button button-custom button-full icon-right ion-chevron-right" ng-click="validateVehiculeType()">{{ "Confirm" | translate }}</button>
+            </div>-->
+			
+            <div ng-show="info.step_2">
+            	<div ng-show="!citySupported">
+					<div class="item item-custom item-divider">
+						{{ "We are not in your city yet!" | translate }}
+					</div>
+					<div class="item item-custom item-icon-left item-text-wrap">
+						<i class="icon ion-android-sad"></i>
+						{{ "We are sorry, but Nyota Ride is not available in your city yet. We are taking note of this and would love to come to a city near you soonest." | translate }}
+					</div>
+				</div>
+                <div class="item item-custom item-divider">
+                    {{ "Ride estimation" | translate }}
+                </div>
+				<table>
+					<tr>
+						<td>
+							<div class="item item-custom item-icon-left item-text-wrap">
+								<i class="icon ion-map"></i>
+								{{ ride.route.legs[0].distance.text }}
+							</div>
+						</td>
+						<td>
+							<div class="item item-custom item-icon-left item-text-wrap">
+								<i class="icon ion-clock"></i>
+								{{ ride.route.legs[0].duration.text }}
+							</div>
+						</td>
+						<td>
+							<div class="item item-custom item-icon-left item-text-wrap" ng-show="!no_driver_available">
+								<i class="icon ion-pricetag"></i>
+								{{ "From: " | translate }} {{ min_estimate | currency:currency_symbol:2 }} 
+							</div>
+						</td>
+					</tr>
+				</table>
+				
+				<div ng-show="no_driver_available">
+                    <div class="item item-custom item-divider">
+                        {{ "No driver available" | translate }}
+                    </div>
+                    <div class="item item-custom item-icon-left item-text-wrap">
+                        <i class="icon ion-android-sad"></i>
+                        {{ "We are sorry, but no driver was found for your request." | translate }}
+                    </div>
+                </div>
+                <div ng-show="!no_driver_available">
+                    <div class="button button-custom button-full icon-right ion-chevron-right" ng-click="showDriverFunction()" ng-show="!showDrivers && drivers.length">
+                        <b>{{ "Check Available Drivers & Charges!" | translate }}</b>
+                    </div>
+					<div class="button button-custom button-full icon-right ion-chevron-down" ng-click="hideDriverFunction()" ng-show="showDrivers && drivers.length">
+						<b>{{ "Pick Your Driver Below" | translate }}</b>
+					</div>
+					<div class="alert-box notice" ng-show="showDialingMsg">
+						<p>
+							<ion-spinner icon="ripple" class="spinner-assertive" ></ion-spinner>
+							<h1>{{ "Wait for driver response." | translate }}</h1>
+						</p>
+						
+					</div>
+					<div class="alert-box error" ng-show="showRejectMsg">
+						<h1>{{ "Driver declined. Choose another driver." | translate }}</h1>
+					</div>
+					<div class="list card"  ng-show="showDrivers && drivers.length && !showDialingMsg">
+						<div class="item item-custom2 item-icon-left" ng-repeat="driver in drivers">
+							
+							<p>
+								<button class="button button-custom2 button-full" ng-click="selectDriver(driver)">
+									<i>
+										<img ng-src="{{driver.userImage}}" class="image_rating" />
+										<i class="smallicon ion-ios-star-half"></i> {{driver.userRate}} | <i class="smallicon ion-person"></i> <b>{{ driver.drivername }}</b>
+									</i>	
+									<table style="width: 100%;">
+										<tr>
+											<td>{{ "Estimate:" | translate }}</td><td><b> {{currency_symbol}} {{ driver.price}}</b></td>
+										</tr>
+										<tr>
+											<td>{{ "Arrives In:" | translate }}</td><td><b> {{ driver.eta.text }}</b></td>
+										</tr>
+										<!--<tr>
+											<td>{{ "Feature:" | translate }}</td><td><b> {{ driver.tagline}}</b></td>
+										</tr>-->
+										
+									</table>
+									<p style='white-space: normal;'>{{ "Feature: " | translate }}<b>{{ driver.tagline}}</b></p>
+								</button>
+							</p>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>
+        <div class="list">
+            <div class="loader" ng-show="is_loading">
+                <ion-spinner class="spinner-custom"></ion-spinner>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>
+<style>
+	.item-icon-left {
+		padding-left: 45px;
+	}
+	.list .item.item-custom2 {
+		border-color: rgba(68, 68, 68, 1);
+		background-color: transparent;
+		color: rgba(68, 68, 68, 1);
+		padding: 0px;
+		margin-bottom: 5px;
+	}
+	.button.button-custom2 {
+		border-color: rgba(178, 178, 178, 1);
+		background-color: rgba(248, 248, 248, 1);
+		color: rgba(68, 68, 68, 1);
+		text-align: left;
+		padding-left: 60px;
+		line-height: 25px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		border: 0px;
+	}
+	.image_rating {
+		z-index: 10;
+		left: 0px;
+		right: auto;
+		top: 50%;
+    	bottom: 50%;
+		border: none;
+		font-size: 1.5em;
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+		margin: auto;
+		-webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		-moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		position: absolute;
+	 }
+	 .ratingview {
+		z-index: 12;
+		font-weight: bolder;
+		height: 10px
+		horizontal-align: center;
+		left: auto;
+		right: auto;
+		margin-top: 55px;
+		-webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		-moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		position: absolute;
+		font-size: 12px;
+		padding: 0 2px;
+		min-height: 0px;
+		line-height: 10px;
+		border-color: #141514;
+		background-color: #ffffff;
+		color: #0c0c0c;
+	 }
+	 .smallicon .ion-ios-star-half {
+		font-size: 10px;
+	 }
+	 
+	.alert-box {
+		color:#555;
+		border-radius:10px;
+		font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+		padding:10px 36px;
+		margin:10px;
+	}
+	.alert-box span {
+		font-weight:bold;
+		text-transform:uppercase;
+	}
+	.error {
+		border:1px solid #f5aca6;
+		background-color: #f5aca6;
+	}
+	.success {
+		border:1px solid #a6ca8a;
+		background-color: #a6ca8a;
+	}
+	.warning {
+		border:1px solid #f2c779;
+		background-color: #f2c779;
+	}
+	.notice {
+		border:1px solid #8ed9f6;
+		background-color: #8ed9f6;
+	}
+	
+	.spinner svg {
+	  width: 100% !important;
+	  height: 75px !important;
+	}
+	.closebtnMeter {
+	    margin-left: 15px;
+	    color: white !important;
+	    font-weight: bold;
+	    float: right;
+	    font-size: 42px;
+	    line-height: 20px;
+	    cursor: pointer;
+	    transition: 0.3s;
+	    right: 10px;
+	    margin-top: 10px;
+	    position: absolute;
+	}
+</style>

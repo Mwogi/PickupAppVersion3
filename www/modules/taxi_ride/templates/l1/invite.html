@@ -1,0 +1,134 @@
+<ion-modal-view cache-view="false" ng-controller="TaxiRideEstimateRideModalController" style="width: 100%; bottom:0%"  >
+    <ion-content  style="padding: 5px;" class="ion_content">
+		<div class="card card-container" style="background-color: black; margin: 0px; padding: 5px;">
+			<div class="part3" id="pointer">
+				<span style="line-height:250%"> <i class="icon ion-share"></i> <b>Invite contact to Nyota Ride</b> 
+					<!-- <span class="closebtnMeter" ng-click="close()">&times;</i></span>  -->
+				</span>
+	        </div>
+	        <hr class="hr"/>
+			<p class="" style="color:white; padding-left: 10px;"  ><b>Please type a phone number below. We will send them an SMS from Nyota Ride inviting them to sign up. You will be alerted when they sign up and take a ride.</b></p>
+            <p class="" style="color:white; padding-left: 10px;"ng-if="data.isDriver"  ><b>If they sign up and take a ride, we will award you Ksh {{data.driverBonus}} bonus to your account.</b></p>
+            <p class="" style="color:white; padding-left: 10px;" ng-if="!data.isDriver" ><b>If they sign up and take a ride, we will award you Ksh {{data.passBonus}} bonus to your account as a discount for your next ride.</b></p>
+            <hr class="hr"/>
+			<div class="card card-container" style="background-color: black;color:green; margin: 0px;">
+				<table id="customers">
+					<tr>  
+						<th colspan="2" style="border:0px">Enter phone number in the format 07XXXXXXXX</th>  
+					</tr>
+					<tr>
+						<td>
+		                	<input type="tel" inputmode="numeric" pattern="\d*" ng-model="phoneNumber" style="font-size: 20px; line-height: 18px; height: 35px; width: 100%; padding-left: 5px;" maxlength="10" ng-maxlength="10" ng-change="checkValidity(phoneNumber)">
+		                </td>
+		                <td>
+		                	<button class = "button button-light button-stretch ion-share" style="min-height: 35px; line-height: 35px; vertical-align: inherit; background: green; color: white; width: 130px;" ng-click="sendInvite()" ng-disabled="!numberValid"> Send Invite</button>
+		                </td>
+					</tr>
+					<tr ng-if = "showInvitedMessage">  
+						<td colspan="2" style="border:0px; color: green;">Your contact {{theValidNumber}} has been invited</td>  
+					</tr>
+					<tr ng-if = "showAlreadyInvitedMessage">  
+						<td colspan="2" style="border:0px; color: red;">Your contact {{theValidNumber}} has already been invited</td>  
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<button id = "x" ng-click="close()">
+			X
+		</button>
+	</ion-content>
+</ion-modal-view>
+   <style>
+	ion-modal-view {
+		background-color: rgba(0,0,0,0) !important;
+	}
+	.scroll {
+	    margin-top: 16px;
+	    height: 100%;
+	}
+	.closebtnMeter {
+	    margin-left: 15px;
+	    color: white !important;
+	    font-weight: bold;
+	    float: right;
+	    font-size: 42px;
+	    line-height: 20px;
+	    cursor: pointer;
+	    transition: 0.3s;
+	    right: 10px;
+	    margin-top: 10px;
+	    position: absolute;
+	}
+	.hr{
+		margin: 1px;
+		background:grey;
+		height:0px;
+		width:100% ;
+	}
+	.ion_content{
+		background-color: transparent;
+	}
+	#customers {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		width: 95%;
+		margin-left: auto;
+    	margin-right: auto;
+    	margin-bottom: 25px;
+	}
+	
+	
+	#customers td, #customers th {
+		padding: 2px;
+		color: white;
+	}
+
+	/*#customers tr:nth-child(even){}
+
+	#customers tr:nth-child(odd){background-color: #f2f2f2;} */
+
+
+	
+
+	#customers th {
+		padding-top: 2px;
+		padding-bottom: 2px;
+		text-align: left;
+		color: white;
+		margin: 5px;
+		border:none !important;
+	}
+	.header{
+		width:100%;
+		max-height: 100px;
+		height: 100px;
+	 }
+   
+	 .container{
+		color:black;
+		margin-top: 20px;
+		padding: 5px;
+	}
+	#pointer {
+		width: 100%;
+		height: 40px;
+		position: relative;
+		color: white;
+		font-size: 16px;
+	  }
+	  
+	  
+
+	#x {
+		position: relative;
+		float: right;
+		background: black;
+		color: white;
+		border-radius: 45px;
+		font-weight: bold;
+		font-size: 32px;
+		width: 48px;
+		line-height: 40px;
+	}
+</style>

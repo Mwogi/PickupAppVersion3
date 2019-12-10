@@ -1,0 +1,134 @@
+<ion-modal-view cache-view="false" ng-controller="TaxiRideEstimateRideModalController" style="width: 100%; bottom:0%"  >
+	<ion-content style="top: auto; background: transparent;">
+		<div class="card card-container " style="background-color:rgba(0, 0, 0, 0.7); bottom: 0; position: fixed; margin-left: 5px; margin-right: 10px; margin-bottom: 5px;">
+			<div class="part3" id="pointer">
+				<span style="padding:5px;line-height:250%"> <i class="icon ion-pricetags"></i> <b>Live Meter Estimate</b> 
+					<span class="closebtnMeter" ng-click="close()">&times;</i></span> 
+				</span>
+				
+				</div>
+				<div class="part4">
+				<!--<div class="row" style=" color:black">
+					<div class="col-sm-7" >
+						<div style="">-->
+							<span>Base: {{data.driver_bare_fare}} + </span>
+							<span>{{data.driver_distance_fare}}/km + </span>
+							<span >{{data.driver_time_fare}}/min</span>
+							<div class="rate">
+								<h1 style="text-align: center;"> Ksh {{data.totalPrice}}</h2> 
+							</div>   
+							<span>| DIST: {{data.distanceCovered}} km   </span>
+							<span > | TIME:{{data.timeElapsed}} |</span>
+							<hr />
+							<span><b>Note:</b> Estimate doesn't include special charges e.g airport toll charges and mall parking. This serves as a rough guide.</span>
+						<!--</div>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</ion-content>
+</ion-modal-view>
+
+<style>
+     ion-modal-view {
+		background-color: rgba(0,0,0,0) !important;
+	 }
+	 .closebtnMeter {
+	    margin-left: 15px;
+	    color: white !important;
+	    font-weight: bold;
+	    float: right;
+	    font-size: 42px;
+	    line-height: 20px;
+	    cursor: pointer;
+	    transition: 0.3s;
+	    right: 10px;
+	    margin-top: 10px;
+	    position: absolute;
+	}
+	 .card {
+		padding-top: 1px;
+		padding-bottom: 1px;
+		box-shadow: 0 1px 3px rgba(0,0,0,.3);
+		margin: auto;
+	}
+	 .spanfonts{
+		font-size: smaller;
+		background-color: #efe0e0;
+	 }
+	 .header{
+		width:100%;
+		max-height: 100px;
+		height: 100px;
+	 }
+   
+	 .container{
+		color:black;
+		margin-top: 20px;
+		padding: 5px;
+	}
+
+	.container p{
+		font-weight: bold;
+		padding: 0px;
+	}
+	.main{
+		width:100%;
+		margin-left:5%;
+	}
+
+	.part4{
+	 
+		background-color: whitesmoke;
+	}
+	#pointer {
+		width: 100%;
+		height: 40px;
+		position: relative;
+	   
+		text-align: center;
+		color: white;
+	  }
+	  #pointer:after {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 0;
+		height: 0;
+		border-left: 20px solid whitesmoke;
+		border-top: 20px solid transparent;
+		border-bottom: 20px solid transparent;
+	  }
+	  #pointer:before {
+		content: "";
+		position: absolute;
+		right: -20px;
+		bottom: 0;
+		width: 0;
+		height: 0;
+		border-left: 20px solid lightslategray;
+		border-top: 20px solid transparent;
+		border-bottom: 20px solid transparent;
+	  }
+	  hr.style-eight {
+		line-height: 20px;  
+		overflow: visible; /* For IE */
+		padding: 0;
+		border: none;
+		border-top: medium double #333;
+		color: rgb(219, 27, 27);
+		text-align: center;
+		padding-right: 50px;
+	}
+	hr.style-eight:after {
+		content: "";
+		display: inline-block;
+		position: relative;
+		top: -0.7em;
+		font-size: 1.5em;
+		padding: 0.25em 0.25em;
+
+		background: whitesmoke;
+	}
+</style>

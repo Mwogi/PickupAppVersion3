@@ -1,0 +1,292 @@
+<ion-modal-view class="taxiride history-modal homepage-custom" ng-controller="TaxiRideHistoryModalController">
+    <ion-header-bar class="bar-custom">
+		<h1 class="title">{{ 'Your Nyota Stats' | translate }}</h1>
+		<span class="closebtnMeter" ng-click="close()">&times;</i></span>
+    </ion-header-bar>
+    <ion-content>
+	<div ng-show="role=='driver'">
+		<div class="w3-bar w3-black">
+		  <button class="w3-bar-item w3-button" ng-click="openTabToday()">Today</button>
+		  <button class="w3-bar-item w3-button" ng-click="openTabWeek()">Week</button>
+		  <button class="w3-bar-item w3-button" ng-click="openTab(3)">History</button>
+		</div>
+		<div id="today" class="w3-container city" ng-show="tabToShow==1">
+			<p style="color:red;font-size: 16px;font-weight: 500;padding: 10px;" align="center">{{title}}</p>
+			<table width="100%">
+					<tr>
+						<td>
+							<div id="today_div_rides" style="height: 120px;" ng:model="data" ></div>
+						</td>
+						
+						<td>
+							<div id="today_div_income" style="height: 120px;" ng:model="data" ></div>
+						</td>
+						
+						<td>
+							<div id="today_div_declines" style="height: 120px;" ng:model="data" ></div>
+						</td>
+					</tr>
+			  </table>
+			  
+			  <p style="color:red;font-size: 16px;font-weight: 500;padding: 10px;" align="center">Choose to view more details</p>
+			  
+				<table class="statsTable"  width="100%">
+					<thead width="100%">
+						<th></th>
+						<th align="left">Time</th>
+						<th align="left">Destination</th>
+						<th>Price</th>
+					</thead>
+					<tr  width="100%" ng-repeat="request in requests" ng-click="showDetails(request)">
+						<td>{{ $index + 1 }}</td>
+						<td style="white-space: nowrap;">{{ request.date }}</td>
+						<td>{{ request.dropoff_short }}</td>
+						<td style="text-align: right; font-weight: 500;"><span class="price-span">{{ request.price }}</span></td>
+					</tr>
+				</table>
+		  
+		  <div class="list">
+				<div class="item item-custom item-text-wrap" ng-if="!loading && !requests.length">
+					<p class="label">
+						{{ "No rides to show yet." | translate }}
+					</p>
+				</div>
+				<div class="loader" ng-show="is_loading">
+					<ion-spinner class="spinner-custom"></ion-spinner>
+				</div>
+		</div>
+		</div>
+		
+		<div id="week" class="w3-container city" ng-show="tabToShow==2">
+				<p style="color:red;font-size: 16px;font-weight: 500;padding: 10px;" align="center">{{title}}</p>
+			  <table width="100%">
+					<tr>
+						<td>
+							<div id="week_div_rides" style="height: 120px;" ng:model="data" ></div>
+						</td>
+						<td>
+							<div id="week_div_income" style="height: 120px;" ng:model="data" ></div>
+						</td>
+						<td>
+							<div id="week_div_declines" style="height: 120px;" ng:model="data" ></div>
+						</td>
+					</tr>
+			  </table>
+			  
+			  <div id="week_rides" ></div>
+			  <p style="color:red;font-size: 16px;font-weight: 500;padding: 10px;" align="center">Choose to view ride details</p>
+		  
+			<div class="list">
+			
+			<table class="statsTable"  width="100%">
+				<thead width="100%">
+					<th></th>
+					<th align="left">Date</th>
+					<th align="right">Rides</th>
+					<th align="right">Declined</th>
+				</thead>
+				<tr width="100%" ng-repeat="stat in stats" ng-click="showStatDets(stat.theDate)">
+					<td>{{ $index + 1 }}</td>
+					<td>{{ stat.theDateFormatted }}</td>
+					<td style="text-align: right; font-weight: 500;"><span class="price-span">{{ stat.ridesNumber }}</span></td>
+					<td style="text-align: right; font-weight: 500;"><span class="price-span">{{ stat.cancelledNum }}</span></td>
+				</tr>
+			</table>
+				
+				<div class="item item-custom item-text-wrap" ng-if="!loading && !stats.length">
+					<p class="label">
+						{{ "No rides this week." | translate }}
+					</p>
+				</div>
+				<div class="loader" ng-show="is_loading">
+					<ion-spinner class="spinner-custom"></ion-spinner>
+				</div>
+			</div>
+		
+		</div>
+		
+		<div id="past" class="w3-container city" ng-show="tabToShow==3">
+			<p style="color:red;font-size: 16px;font-weight: 500;padding: 10px;" align="center">{{title}}</p>
+		  
+			<div class="list">
+			
+			<table class="statsTable" width="100%">
+				<thead width="100%">
+					<th></th>
+					<th align="left">Week</th>
+					<th align="right">Rides</th>
+					<th align="right">Earnings</th>
+				</thead>
+				<tr width="100%" ng-repeat="stat in stats" ng-click="showStatDetsWeek(stat.weekdate, stat.weekofyear)">
+					<td>{{ $index + 1 }}</td>
+					<td>{{ stat.weekofyear }} of {{ stat.year }}</td>
+					<td style="text-align: right; font-weight: 500;"><span class="price-span">{{ stat.ridesNumber }}</span></td>
+					<td style="text-align: right; font-weight: 500;"><span class="price-span">{{ stat.income }}</span></td>
+				</tr>
+			</table>
+				
+				<div class="item item-custom item-text-wrap" ng-if="!loading && !stats.length">
+					<p class="label">
+						{{ "No rides for the year yet." | translate }}
+					</p>
+				</div>
+				<div class="loader" ng-show="is_loading">
+					<ion-spinner class="spinner-custom"></ion-spinner>
+				</div>
+			</div>
+
+		  
+		</div>
+	</div>
+	
+	
+	<div ng-show="role=='passenger'">
+		<div class="w3-bar w3-black">
+		  <button class="w3-bar-item w3-button" ng-click="openTab(1)">Today</button>
+		  <button class="w3-bar-item w3-button" ng-click="openTab(3)">History</button>
+		</div>
+		<div id="today" class="w3-container city" ng-show="tabToShow==1">
+			<p style="color:red;font-size: 16px;font-weight: 500;padding: 10px;" align="center">Your rides today (Choose for details)</p>
+			  
+				<table class="statsTable"  width="100%">
+					<thead width="100%">
+						<th></th>
+						<th align="left">Time</th>
+						<th align="left">Destination</th>
+						<th>Price</th>
+					</thead>
+					<tr  width="100%" ng-repeat="request in requests" ng-click="showDetails(request)">
+						<td>{{ $index + 1 }}</td>
+						<td style="white-space: nowrap;">{{ request.date }}</td>
+						<td>{{ request.dropoff_short }}</td>
+						<td style="text-align: right; font-weight: 500;"><span class="price-span">{{ request.price }}</span></td>
+					</tr>
+				</table>
+		  
+		  <div class="list">
+				<div class="item item-custom item-text-wrap" ng-if="!loading && !requests.length">
+					<p class="label">
+						{{ "No rides to show yet." | translate }}
+					</p>
+				</div>
+				<div class="loader" ng-show="is_loading">
+					<ion-spinner class="spinner-custom"></ion-spinner>
+				</div>
+		</div>
+		</div>
+		
+		<div id="week" class="w3-container city" ng-show="tabToShow==2">
+			
+			<p style="color:red;font-size: 16px;font-weight: 500;padding: 10px;" align="center">{{title}} (Choose for ride details)</p>
+		  
+			<div class="list">
+			
+				<table class="statsTable"  width="100%">
+					<thead width="100%">
+						<th></th>
+						<th align="left">Date</th>
+						<th align="right">Rides</th>
+					</thead>
+					<tr width="100%" ng-repeat="stat in stats" ng-click="showStatDets(stat.theDate)">
+						<td>{{ $index + 1 }}</td>
+						<td>{{ stat.theDateFormatted }}</td>
+						<td style="text-align: right; font-weight: 500;"><span class="price-span">{{ stat.ridesNumber }}</span></td>
+					</tr>
+				</table>
+				
+				<div class="item item-custom item-text-wrap" ng-if="!loading && !stats.length">
+					<p class="label">
+						{{ "No rides this week." | translate }}
+					</p>
+				</div>
+				<div class="loader" ng-show="is_loading">
+					<ion-spinner class="spinner-custom"></ion-spinner>
+				</div>
+			</div>
+		
+		</div>
+		
+		<div id="past" class="w3-container city" ng-show="tabToShow==3">
+			<p style="color:red;font-size: 16px;font-weight: 500;padding: 10px;" align="center">{{title}} (Choose to view details)</p>
+		  
+			<div class="list">
+			
+			<table class="statsTable" width="100%">
+				<thead width="100%">
+					<th></th>
+					<th align="left">Week</th>
+					<th align="right">Rides</th>
+				</thead>
+				<tr width="100%" ng-repeat="stat in stats" ng-click="showStatDetsWeek(stat.weekdate, stat.weekofyear)">
+					<td>{{ $index + 1 }}</td>
+					<td>{{ stat.weekofyear }} of {{ stat.year }}</td>
+					<td style="text-align: right; font-weight: 500;"><span class="price-span">{{ stat.ridesNumber }}</span></td>
+				</tr>
+			</table>
+				
+				<div class="item item-custom item-text-wrap" ng-if="!loading && !stats.length">
+					<p class="label">
+						{{ "No rides for the year yet." | translate }}
+					</p>
+				</div>
+				<div class="loader" ng-show="is_loading">
+					<ion-spinner class="spinner-custom"></ion-spinner>
+				</div>
+			</div>
+
+		  
+		</div>
+	</div>
+	</ion-content>
+</ion-modal-view>
+<style>
+    .price-span{
+        /*float: right;*/
+        /*font-weight: bold;*/
+        /*font-size: 14px;*/
+    }
+	.w3-container, .w3-panel {
+		padding: 0.01em 5px;
+	}
+	
+	.statsTable th , .statsTable td  {
+	  border: 0px solid grey;
+	  border-collapse: collapse;
+	  padding: 5px;
+	}
+	.statsTable tr:nth-child(odd) {
+	  background-color: #f1f1f1;
+	  font-size: 14px;
+	}
+	.statsTable tr:nth-child(even) {
+	  background-color: #ffffff;
+	  font-size: 14px;
+	}
+	
+	.w3-bar-block .w3-dropdown-hover,.w3-bar-block .w3-dropdown-click{width:100%}
+	.w3-bar-block .w3-dropdown-hover .w3-dropdown-content,.w3-bar-block .w3-dropdown-click .w3-dropdown-content{min-width:100%}
+	.w3-bar-block .w3-dropdown-hover .w3-button,.w3-bar-block .w3-dropdown-click .w3-button{width:100%;text-align:left;padding:8px 16px}
+
+	.w3-bar{width:100%;overflow:hidden}.w3-center .w3-bar{display:inline-block;width:auto}
+	.w3-bar .w3-bar-item{padding:8px 16px;float:left;width:auto;border:none;outline:none;display:block}
+	.w3-bar .w3-dropdown-hover,.w3-bar .w3-dropdown-click{position:static;float:left}
+	.w3-bar .w3-button{white-space:normal}
+	.w3-bar-block .w3-bar-item{width:100%;display:block;padding:8px 16px;text-align:left;border:none;outline:none;white-space:normal;float:none}
+	.w3-bar-block.w3-center .w3-bar-item{text-align:center}.w3-block{display:block;width:100%}
+	.w3-cell-row:before,.w3-cell-row:after,.w3-clear:after,.w3-clear:before,.w3-bar:before,.w3-bar:after{content:"";display:table;clear:both}
+	.w3-hide-small{display:none!important}.w3-mobile{display:block;width:100%!important}.w3-bar-item.w3-mobile,.w3-dropdown-hover.w3-mobile,.w3-dropdown-click.w3-mobile{text-align:center}
+	.w3-black,.w3-hover-black:hover{color:#fff!important;background-color:#000!important}
+	
+	.w3-btn,.w3-button{border:none;display:inline-block;outline:0;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
+	.w3-btn,.w3-button{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}   
+	.w3-dropdown-hover:hover > .w3-button:first-child,.w3-dropdown-click:hover > .w3-button:first-child{background-color:#ccc;color:#000}
+	.w3-disabled,.w3-btn:disabled,.w3-button:disabled{cursor:not-allowed;opacity:0.3}.w3-disabled *,:disabled *{pointer-events:none}
+	.w3-bar-block .w3-dropdown-hover .w3-button,.w3-bar-block .w3-dropdown-click .w3-button{width:100%;text-align:left;padding:8px 16px}
+	.w3-dropdown-hover.w3-mobile,.w3-dropdown-hover.w3-mobile .w3-btn,.w3-dropdown-hover.w3-mobile .w3-button,.w3-dropdown-click.w3-mobile,.w3-dropdown-click.w3-mobile .w3-btn,.w3-dropdown-click.w3-mobile .w3-button{width:100%}}
+	.w3-button:hover{color:#000!important;background-color:#ccc!important}
+	
+	.w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,.w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,
+	.w3-cell-row:before,.w3-cell-row:after,.w3-clear:after,.w3-clear:before,.w3-bar:before,.w3-bar:after{content:"";display:table;clear:both}
+	.w3-container,.w3-panel{padding:0.01em 16px}.w3-panel{margin-top:16px;margin-bottom:16px}
+	
+</style>

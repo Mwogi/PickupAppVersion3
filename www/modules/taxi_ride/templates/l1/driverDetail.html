@@ -1,0 +1,174 @@
+<ion-modal-view cache-view="false" ng-controller="TaxiRideEstimateRideModalController" style=" ;width: 100%; height:100% ;margin-top:0%;bottom:0%;"  >
+    <ion-header-bar class="bar-custom">
+		<h1 class="title">{{ 'Driver Documents' | translate }}</h1>
+		<span class="closebtnMeter" ng-click="close()">&times;</i></span>
+    </ion-header-bar>
+    <ion-content>
+        <ion-content class="has-footer" scroll="false">
+            <div >
+                <div>                    
+                    <div id="">
+                        <fieldset style="">
+                            <legend style="line-height:1.85714">Attach Your Documents</legend>
+                            <!--<div class="row rower">
+                                <div class="col col-30" style="line-height: 1;font-size: small;">Passport Photo</div>
+                                <div class="col col-65">    <div class="" ng-show="data.progressPercentPS > 0">
+                                    <div class="">
+                                        <div class="loader" style="width: {{data.progressPercentPS}}%;">
+                                            <p class="percent">{{data.progressPercentPS}}%</p>
+                                        </div>
+                                    </div>
+                                </div></div>
+                                <div class="col col-5">
+                                    <button ng-click="data.uploadPS()"  style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">upload</button></div>
+                            </div>-->
+							<section class="avatar text-center padding">
+								<div style="font-size: 18px;">
+									{{ "Tap to upload passport photo" | translate }}
+								</div>
+								<div>
+									<img width="150" height="150" ng-src="{{avatar_url}}" class="padding stable-bg stable-border" ng-click="takePicture()" sb-load="avatarLoaded()" sb-error="hideAvatar()" />
+								</div>
+							</section>
+							
+							<label class="item item-input item-custom">
+								<div>
+									{{ "ID Card Front" | translate }}
+								</div>
+								<div class="col col-65">	
+									<div class="" ng-show="data.progressPercentID > 0">
+										<div class="loader" style="width: {{data.progressPercentID}}%;">
+											<p class="percent">{{data.progressPercentID}}%</p>
+										</div>
+									</div>
+								</div>
+								<button ng-click="data.uploadID()"  style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">Upload</button>
+							</label>
+							
+                            <label class="item item-input item-custom">
+								<div>
+									{{ "Your Licence" | translate }}
+								</div>
+								<div class="col col-65">	
+									<div class="" ng-show="data.progressPercentDL > 0">
+										<div class="loader" style="width: {{data.progressPercentDL}}%;">
+											<p class="percent">{{data.progressPercentDL}}%</p>
+										</div>
+									</div>
+								</div>
+								<button ng-click="data.uploadDL()"  style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">Upload</button>
+							</label>
+							
+                            <!--<div class="row rower padding">
+                                <div class="col col-30" style="line-height: 1;font-size: small;">PSV Card</div>
+                                <div class="col col-65">    <div class="" ng-show="data.progressPercentPC > 0">
+                                    <div class="">
+                                        <div class="loader" style="width: {{data.progressPercentPC}}%;">
+                                            <p class="percent">{{data.progressPercentPC}}%</p>
+                                        </div>
+                                    </div>
+                                </div></div>
+                                <div class="col col-5"><button ng-click="data.uploadPC()" style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">Upload</button></div>
+                            </div>
+                            <div class="row rower padding">
+                                <div class="col col-30" style="line-height: 1;font-size: small;">PSV Insurance</div>
+                                <div class="col col-65">    <div class="" ng-show="data.progressPercentPI > 0">
+                                    <div class="">
+                                        <div class="loader" style="width: {{data.progressPercentPI}}%;">
+                                            <p class="percent">{{data.progressPercentPI}}%</p>
+                                        </div>
+                                    </div>
+                                </div></div>
+                                <div class="col col-5"><button ng-click="data.uploadPI()" style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">Upload</button></div>
+                            </div>
+                            <div class="row rower padding">
+                                <div class="col col-30" style="line-height: 1;font-size: small;">NTSA Inspection Report</div>
+                                <div class="col col-65">    <div class="" ng-show="data.progressPercentNI > 0">
+                                    <div class="">
+                                        <div class="loader" style="width: {{data.progressPercentNI}}%;">
+                                            <p class="percent">{{data.progressPercentNI}}%</p>
+                                        </div>
+                                    </div>
+                                </div></div>
+                                <div class="col col-5"><button ng-click="data.uploadNI()" style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">Upload</button></div>
+                            </div>-->
+                            <div class="row">
+                                <button class="button button-block button-positive icon-right  ion-android-arrow-dropright-circle" ng-click="data.uploadFinal()">
+                                    Upload Documents
+                                </button>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                </div>
+              
+
+            </div>
+        </ion-content>
+        <div class="progress-bar">
+            <div class="increment"></div>
+        </div>
+    </ion-content>
+</ion-modal-view>
+<style>
+    ion-slide{
+      padding-top: 34px !important;
+    }
+    ion-modal-view {
+    background-color: rgba(250, 250, 250, 1) !important; 
+}
+::-webkit-input-placeholder{
+   padding: 15px;
+    height: 100%;
+}
+.rower{
+  border:1px solid gainsboro;
+}
+.loader {
+  background: #f20d49 !important;
+ font-size: medium;
+  height: 20px;
+}
+.padding{
+padding-top: 5px
+}
+.loader p {
+  text-align: center;
+  color: white !important;
+  text-align: center;
+}
+
+hr{
+    height: 2px;
+}
+.slider {
+  height: 100%;
+}
+.slider-slide {
+ 
+  padding-top: 80px;
+  text-align: center; }
+#list {
+  width: calc(100% - 160px);
+  margin: 30px auto;
+  font-size: 20px; }
+#list ol {
+  margin-top: 30px; }
+#list ol li {
+  text-align: left;
+  list-style: decimal;
+  margin: 10px 0px; }
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #F5F9FC;
+  position: absolute;
+  bottom: 44px;
+  z-index: 12; }
+.increment {
+  width: 5%;
+  height: 100%;
+  background: #017AFD;
+  transition: all .75s; }
+  </style>

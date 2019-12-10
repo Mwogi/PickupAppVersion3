@@ -1,0 +1,175 @@
+<ion-modal-view cache-view="false" ng-controller="TaxiRideEstimateRideModalController" style="width: 100%; bottom:0%"  >
+    <ion-content  style="top: auto; padding: 5px;" class="ion_content">
+		<div class="card card-container" style="background-color: black; margin: 0px; padding: 5px;">
+			<div class="part3" id="pointer">
+				<span style="line-height:250%"> <i class="icon ion-stats-bars"></i> <b>Your Nyota Ride Performance Status</b> 
+					<span class="closebtnMeter" ng-click="close()">&times;</i></span> 
+				</span>
+	        </div>  
+			<hr class="hr"/>
+			<div class="card card-container" style="background-color:black;color:white; margin: 0px;">
+				<table id="customers-status">
+					<tr>
+						<td><i class="icon ion-android-star-outline"></i> Rating: </td><td  style="text-align: right;"> {{driverRating}} </td>
+						<td></td><td></td><td></td><td></td><td></td><td></td>
+						<td><i class="icon ion-ribbon-b"></i> Bonuses: </td><td  style="text-align: right;"> {{dataDay.bonus}} </td>
+					</tr>
+				</table>
+				<hr class="hr"/>
+				<!--<table id="customers-status">
+					<tr>
+						<th>Today's Stats</th>
+						<th style="text-align: right;">Amount</th>
+					</tr>
+					<tr>
+						<td><i class="icon ion-speedometer"></i> Trips: </td><td  style="text-align: right;"> {{dataDay.trips}} </td>
+					</tr>
+					<tr>
+						<td><i class="icon ion-bag"></i> Collections: </td><td  style="text-align: right;"> {{dayCollections}} </td>
+					</tr>
+					<tr>
+						<td><i class="icon ion-log-out"></i> Commissions: </td><td  style="text-align: right;"> {{dataDay.commission}} </td>
+					</tr>
+					<tr>
+						<td> <i class="icon ion-arrow-graph-up-right"></i>Your Earnings: </td><td  style="text-align: right;"> {{dataDay.earning}}</td>
+					</tr>
+					<tr ng-show="dataDay==null">
+						<td colspan="4">Unable to load your statistics. Try again later.</td>
+					</tr>
+				</table>-->
+				<table id="customers-status">
+					<tr>
+						<th style="font-weight: 500;">Performance</th>
+						<th style="text-align: right;">Today</th>
+						<th style="text-align: right;">Week</th>
+					</tr>
+					<tr>
+						<td><i class="icon ion-speedometer"></i> Trips: </td><td  style="text-align: right;"> {{dataDay.trips}} </td><td  style="text-align: right;"> {{dataWeek.trips}} </td>
+					</tr>
+					<tr>
+						<td><i class="icon ion-bag"></i> Collections: </td><td  style="text-align: right;"> {{dayCollections}} </td><td  style="text-align: right;"> {{weekCollections}} </td>
+					</tr>
+					<tr>
+						<td><i class="icon ion-log-out"></i> Commissions: </td><td  style="text-align: right;"> {{dataDay.commission}} </td><td  style="text-align: right;"> {{dataWeek.commission}} </td>
+					</tr>
+					<tr>
+						<td><i class="icon ion-arrow-graph-up-right"></i> Your Earnings: </td><td  style="text-align: right;"> {{dataDay.earning}}</td><td  style="text-align: right;"> {{dataWeek.earning}}</td>
+					</tr>
+					<tr ng-show="dataWeek==null">
+						<td colspan="4">Unable to load your statistics. Try again later.</td>
+					</tr>
+				</table>
+				<table id="customers-status">
+					<tr>
+						<th colspan="2" style="font-weight: 500;">Commissions Summary</th>
+					</tr>
+					<tr>
+						<td><i class="icon ion-log-out"></i> This week: </td><td  style="text-align: right;"> {{dataWeek.netamount}} </td>
+					</tr>
+					<tr>
+						<td><i class="icon ion-log-out"></i> Outstanding: </td><td  style="text-align: right;"> {{dataWeek.outstanding}} </td>
+					</tr>
+					<tr>
+						<td style="font-weight: 500;"><i class="icon ion-log-out"></i> TOTAL: </td><td  style="font-size: 20px; font-weight: 500; text-align: right;"> {{amountNet}}</td>
+					</tr>
+					<tr ng-show="dataWeek==null">
+						<td colspan="4">Unable to load your statistics. Try again later.</td>
+					</tr>
+				</table>
+				<hr class="hr"/>
+				<table id="customers-status" ng-show = "remit > 0">
+					<tr ng-show = "toNyota">  
+						<th colspan="4" style="border:0px; color: red; font-size: 18px;"><i class="icon ion-flag"></i>You remit Ksh {{remit}}</th>  
+					</tr>
+					<tr ng-show = "!toNyota">  
+						<th colspan="4" style="border:0px; color: red; font-size: 18px;"><i class="icon ion-flag"></i>You will be reimbursed Ksh {{remit}}</th>  
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+	</ion-content>
+</ion-modal-view>
+   <style>
+	ion-modal-view {
+		background-color: rgba(0,0,0,0) !important;
+	}
+	.scroll {
+	    margin-top: 16px;
+	    height: 100%;
+	}
+	.closebtnMeter {
+	    margin-left: 15px;
+	    color: white !important;
+	    font-weight: bold;
+	    float: right;
+	    font-size: 42px;
+	    line-height: 20px;
+	    cursor: pointer;
+	    transition: 0.3s;
+	    right: 10px;
+	    margin-top: 10px;
+	    position: absolute;
+	}
+	.hr{
+		margin: 1px;
+		background:grey;
+		height:0px;
+		width:100% ;
+	}
+	.ion_content{
+		background-color: transparent;
+	}
+	#customers-status {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		width: 95%;
+		margin-left: auto;
+    	margin-right: auto;
+    	margin-bottom: auto;
+	}
+	
+	
+	#customers-status td, #customers-status th {
+		border: 1px solid #black;
+		padding: 2px;
+		font-size: 16px;
+	}
+
+	/*#customers-status tr:nth-child(even){}
+
+	#customers-status tr:nth-child(odd){background-color: black;} */
+
+
+	#customers-status tr:hover {
+		background-color: #ddd;
+	}
+
+	#customers-status th {
+		padding-top: 2px;
+		padding-bottom: 2px;
+		text-align: left;
+		color: white;
+		margin: 5px;
+		border:none !important;
+	}
+	.header{
+		width:100%;
+		max-height: 100px;
+		height: 100px;
+	 }
+   
+	 .container{
+		color:black;
+		margin-top: 20px;
+		padding: 5px;
+	}
+	#pointer {
+		width: 100%;
+		height: 40px;
+		position: relative;
+		color: white;
+		font-size: 15px;
+	  }
+	  
+</style>

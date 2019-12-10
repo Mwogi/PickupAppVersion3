@@ -1,0 +1,80 @@
+<style>
+    .star-rating {
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		display: inline-block;
+    }
+    .star-rating .star {
+		padding: 1px;
+		color: #ddd;
+		font-size: 50px;
+		text-shadow: .05em .05em #aaa;
+		list-style-type: none;
+		display: inline-block;
+		cursor: pointer;
+    }
+    .star-rating .star.filled {
+		color: #fd0;
+    }
+    .star-rating.readonly .star.filled {
+		color: #666;
+    }
+    img{
+       height: 100px;
+       width: 100px;
+       margin-left: 50px; 
+      
+    }
+    
+	ion-modal-view.modal {
+		/* top: 10%; */
+		margin-right: 0% !important;
+		/* margin-bottom: 0% !important; */
+		margin-left: 0% !important;
+		margin-top: 0px;
+		min-height: 500px !important;
+		width: 100% !important;
+		height: 100%;
+	}
+	
+	.center{
+		margin: 5px;
+		padding: 5px;
+		text-align: center;
+	}
+	.comment{
+		line-height: 20px;
+		height: 100%;
+		width: 100%;
+	}
+    </style>
+  <div class="">
+	<ion-modal-view  style=""  class="card" ng-controller="TaxiRideEstimateRideModalController" >
+		<!--<ion-header-bar style="text-align:center ">
+			<h3 class="title">Enjoyed your ride?</h3>
+		</ion-header-bar>-->
+    
+		<ion-content class=""> 
+			<div class=" center padding">
+				<fieldset>
+					<legend style="font-size:15px"><b>Rate your {{rate_role}}!</b>  </legend>
+					<p style="color:red; font-size: 34px; font-weight: 500;padding: 10px;" align="center">Price: {{rideprice}}</p>
+					<p style="color:red; font-size: 20px;" align="center">{{pay_status}}</p>
+					<label class="item item-floating-label">
+						<span class="input-label">Leave your feedback here</span>
+						<textarea name="comment" class="comment" ng-model="comment" placeholder="Leave your feedback here"></textarea>
+					</label>
+					<ul class="star-rating padding" >
+						<li ng-repeat="star in rater" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)" >
+							<i class="ion-ios-star"></i>
+						</li>
+					</ul>
+					<br/>
+					<br/>
+					<button class="button  button-dark button-full padding" ng-click="postRating(comment)">Rate Ride</button>
+				</fieldset>  
+			</div>
+		</ion-content>
+	</ion-modal-view>
+ </div>

@@ -1,0 +1,118 @@
+<ion-modal-view cache-view="false" ng-controller="TaxiRideEstimateRideModalController" style="width: 100%; bottom:0%"  >
+    <ion-content  style="top: auto; padding: 5px;" class="ion_content">
+		<div class="card card-container" style="background-color: black; margin: 0px; padding: 5px;" ng-if="data.switcher">
+			<div class="part3" id="pointer">
+				<span style="line-height:250%"> <i class="icon ion-radio-waves"></i> <b>Nearby Driver Pricing Comparison</b> 
+					<span class="closebtnMeter" ng-click="close()">&times;</i></span> 
+				</span>
+	        </div>  
+			<p class="" style="color:white; padding-left: 10px;"ng-if="data.lowerDrivers==0||data.lowerDrivers==null"  ><b>You are charging the lowest rates of any driver around you! </b></p>
+            <p class="" style="color:white; padding-left: 10px;"ng-if="data.lowerDrivers==1"  ><b>{{data.lowerDrivers}} driver nearby is charging lower rates than you. </b></p>
+            <p class="" style="color:white; padding-left: 10px;" ng-if="data.lowerDrivers>1" ><b>{{data.lowerDrivers}} drivers nearby are charging lower rates than you. </b></p>
+            <hr class="hr"/>
+			<div class="card card-container" style="background-color:black;color:green; margin: 0px;" ng-if="data.lowerDrivers>0">
+				<table id="customers">
+					<tr>  
+						<th colspan="4" style="border:0px">Lowest driver near you charges as follows</th>  
+					</tr>
+					<tr>
+						<th>Base Fare</th>
+						<th>Per Kilometer</th>
+						<th>Per Minute</th>
+					</tr>
+					<tr style="text-align: center;">
+						<td  style="background-color: #f2f2f2;"> <i class="icon ion-android-checkmark-circle"></i> {{data.driver.base_fare}} </td>
+						<td  style="background-color: #f2f2f2;"> <i class="icon ion-map"></i> {{data.driver.distance_fare}} </td>
+						<td  style="background-color: #f2f2f2;"> <i class="icon ion-clock"></i> {{data.driver.time_fare}}</td>
+					</tr>
+					<tr ng-show="data.driver==null">
+						<td colspan="4">Unable to load the information</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+	</ion-content>
+</ion-modal-view>
+   <style>
+	ion-modal-view {
+		background-color: rgba(0,0,0,0) !important;
+	}
+	.scroll {
+	    margin-top: 16px;
+	    height: 100%;
+	}
+	.closebtnMeter {
+	    margin-left: 15px;
+	    color: white !important;
+	    font-weight: bold;
+	    float: right;
+	    font-size: 42px;
+	    line-height: 20px;
+	    cursor: pointer;
+	    transition: 0.3s;
+	    right: 10px;
+	    margin-top: 10px;
+	    position: absolute;
+	}
+	.hr{
+		margin: 1px;
+		background:grey;
+		height:0px;
+		width:100% ;
+	}
+	.ion_content{
+		background-color: transparent;
+	}
+	#customers {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		width: 95%;
+		margin-left: auto;
+    	margin-right: auto;
+    	margin-bottom: 25px;
+	}
+	
+	
+	#customers td, #customers th {
+		border: 1px solid #ddd;
+		padding: 2px;
+	}
+
+	/*#customers tr:nth-child(even){}
+
+	#customers tr:nth-child(odd){background-color: #f2f2f2;} */
+
+
+	#customers tr:hover {
+		background-color: #ddd;
+	}
+
+	#customers th {
+		padding-top: 2px;
+		padding-bottom: 2px;
+		text-align: left;
+		color: white;
+		margin: 5px;
+		border:none !important;
+	}
+	.header{
+		width:100%;
+		max-height: 100px;
+		height: 100px;
+	 }
+   
+	 .container{
+		color:black;
+		margin-top: 20px;
+		padding: 5px;
+	}
+	#pointer {
+		width: 100%;
+		height: 40px;
+		position: relative;
+		color: white;
+		font-size: 16px;
+	  }
+	  
+</style>

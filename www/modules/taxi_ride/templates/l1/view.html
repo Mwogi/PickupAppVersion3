@@ -1,0 +1,1129 @@
+<ion-view class="taxiride">
+  <!--<ion-nav-title>{{ page_title }}</ion-nav-title>-->
+  <ion-content sb-background-image scroll="false">
+    <div ng-if="preInit">
+      <div class="loader" ng-show="is_loading || must_login === null">
+        <!--<ion-spinner class="spinner spinner-custom"></ion-spinner>-->
+		<ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>
+      </div>
+      
+     
+      <!--<div ng-show="!is_loading && must_login">
+        <div class="card">
+          <div class="item item-text-wrap">
+            <p>{{"You must register or login to continue..." | translate}}</p>
+          </div>
+          <div class="item item-text-wrap text-center">
+            <a href="#" ng-click="login()" class="button button-custom">
+              {{"Proceed" | translate}}
+            </a>
+          </div>
+        </div>
+      </div>-->
+    </div
+	
+	
+	
+    <div ng-if="!preInit">
+      <div class="loader" ng-show="is_loading">
+        <!--<ion-spinner class="spinner spinner-custom"></ion-spinner>-->
+		<!--<ion-spinner icon="ripple" class="spinner-assertive"></ion-spinner>-->
+      </div>
+	  
+      <div id="mapContainer" ng-show="!is_loading">
+        <div id="map">
+        </div>
+        <!--<div id="content" ng-show="request_is_ongoing">
+		  		{{arrivalInfo}}
+		  </div>-->
+        
+         <div ng-show="!is_loading && !must_login && !all_valid && !driver && !passenger && preInit" style="top: 100px;position: absolute; z-index: 10000;">
+        <div class="card">
+          <div class="item item-text-wrap">
+            <p style="font-size: 18px;font-weight: 400;">{{"If you want to partner with Nyota Ride, choose Driver. There are additional requirements that you have to satisfy before you are approved." | translate}}</p>
+          </div>
+          <button ng-click="selectRole('driver')" class="button button-balanced" style="width: 40%;margin: 10px;margin-left: 5%;" >
+			<i class="icon ion-ios-speedometer"></i> {{"Driver" | translate }}
+		  </button>
+		  <button ng-click="selectRole('passenger')" class="button button-balanced" style="width: 40%;margin: 10px;margin-right: 5%;" >
+			<i class="icon ion-android-person"></i> {{"Passenger" | translate }}
+		  </button>
+          <!--<div class="item item-text-wrap text-center">
+            <a href="#" ng-click="selectRole('driver')" class="button button-custom">
+              <i class="icon icon-car"></i>
+              {{"Driver" | translate}}
+            </a>
+          </div>
+          <div class="item item-text-wrap text-center">
+            <a href="#" ng-click="selectRole('passenger')" class="button button-custom">
+              <i class="icon icon-car"></i>
+              {{"Passenger" | translate}}
+            </a>
+          </div>-->
+        </div>
+      </div>
+      
+        <div id="greyOverlay" ng-hide="is_loading" ng-if="all_valid && driver && (!accepted || !isDriverOnline)">
+          <div id="driver_not_accepted" class="homepage-custom" ng-if="driver && !accepted">
+            <div class="cell">
+              <p ng-if="accepted_waiting">{{"Your details are being verified pending approval. Meanwhile, ensure you have provided the following documents during registration or upload them using the settings menu on the left of the screen." | translate }}
+              	<hr style="height: 2px;" />
+              	<ul>
+              		<li> {{ "1. Copy of drivers licence" | translate }} </li>
+              		<li> {{ "2. Copy of ID" | translate }} </li>
+              		<li> {{ "3. Vehicle Insurance/NTSA sticker" | translate }} </li>
+              		<li> {{ "4. Clear vehicle front photo" | translate }} </li>
+              		<li> {{ "5. Clear vehicle side photo" | translate }} </li>
+              		<li> {{ "6. Clear profile photo" | translate }} </li>
+              		<hr style="height: 2px;" />
+              		<li> {{ "Submission of all required documents and photos shortens the approval time." | translate }} </li>
+              	</ul>
+              </p>
+              <p ng-if="!accepted_waiting">{{ "Your account is currently inactive for one or more reasons. Contact Nyota Ride." | translate }}</p>
+            </div>
+          </div>
+        </div>
+        <div id="mapOverlay" class="homepage-custom" ng-hide="is_loading">
+          <div id="floating_addresses" class="list" ng-if="passenger && !has_request">
+            <!--<label class="item item-input item-custom">
+              <div class="pick-drop-label">
+                {{ "Pick up" | translate }}
+              </div>
+              <input type="text" ng-model="ride.pickup_address" ng-keyup="setPickUp($event)" sb-google-autocomplete on-address-change="setPickUp(true)" ng-focus="disableTap('ride_pickup_address')" id="ride_pickup_address" readonly>
+			  
+            </label>-->
+		
+			<label class="item-dest item item-floating-label">
+			  <!--<div class="pick-drop-label">
+				{{ "Where to?" | translate }}
+			  </div>-->
+			  <span class="input-label">{{ "Where are you heading to?" | translate }}</span>
+			  <input type="text" class = "whereToInput" ng-model="ride.dropoff_address" ng-keyup="setDropOff($event)" sb-google-autocomplete on-address-change="setDropOff(true)" ng-blur="destLostFocus()" ng-focus="disableTap('ride_dropoff_address')" id="ride_dropoff_address" placeholder="Search and select your destination" />
+			</label>
+			<div class="destContent" ng-show="showTopDest && destinations.length">
+				<ion-scroll scrollY="true" style="height: 100vh;">
+					<div class="item item-custom2" ng-repeat="dest in destinations">
+						<p>
+							<div class="destLists" ng-click="selectDest(dest)">
+								<p>{{ dest.dropoff_address }}</p>
+							</div>
+						</p>
+					</div>
+				</ion-scroll>
+			</div>
+						
+				
+          </div>
+		  <!--
+		  <button ng-click="pickOnMap('ride_pickup_address')" class="pickOnMapBtn pickupMapBtn" ng-show="passenger && !has_request" > <i class="icon ion-pin"></i> </button>
+		  
+		  <button ng-click="pickOnMap('ride_dropoff_address')" class="pickOnMapBtn droffMapBtn" ng-show="passenger && !has_request" > <p> <i class="icon ion-pin"> </i> </p> </button>
+		  
+          <div class="center_marker homepage-custom" ng-if="passenger && !has_request && showPickupPoint">
+            <img ng-src="{{pickup_pin}}">
+          </div>-->
+		
+		<div class="center_marker homepage-custom" ng-if="passenger && !has_request && !userTyping" id="pin" style="width: 300px;">
+			<div id="marke" class="main" style="font-size: small; width: 100%;">
+				<!--<div class="main3 card"> GO </div>-->
+				<div class="main">PICK ME FROM HERE</div>
+				<div class="main2 ">{{time_to_pickup}}</div>
+			</div>
+			<hr width="1" color = "black" size="50">
+		</div>
+
+          <!--<div class="center_marker homepage-custom" ng-if="passenger && !has_request && !showPickupPoint">
+            <img ng-src="{{dropoff_pin}}">
+          </div>-->
+          
+		  <div id="driver_panel_action" ng-if="driver">
+			
+			  <button ng-click="goOnline()" class="button button-custom go2" ng-if="driver && accepted && !location_is_off && !isDriverOnline && !has_request">
+				<i class="icon ion-flash-off"></i> {{"OFFLINE! Tap to go ONLINE" | translate }}
+			  </button>
+			  
+			  <button ng-click="goOnline()" class="button button-custom go2" ng-if="driver && accepted && location_is_off && !has_request">
+				<i class="icon ion-flash-off"></i> {{"LOCATION OFF! Tap to RETRY" | translate }} 
+			  </button>
+
+			  <button ng-swipe-right="goOfflineIntent()" class="button button-balanced go2" ng-if="driver && accepted && !location_is_off && isDriverOnline && !has_request">
+				<i class="icon ion-android-wifi"></i> {{"ONLINE! Ready for clients!" | translate }} <i class="icon ion-chevron-right"></i>
+			  </button>
+			  
+			  <a href="javascript:void(0)" class="button button-balanced clickToStart" ng-show="request_is_accepted && driver" ng-swipe-right="startRide()" >
+				<i class="icon ion-chevron-right"></i><i class="icon ion-chevron-right"></i>{{"SWIPE TO START RIDE" | translate}}
+			  </a>
+			  
+			  <a href="javascript:void(0)" class="button button-balanced clickToStart" ng-show="request_is_accepted && driver && !driver_arrived" ng-swipe-right="driverArrived()" >
+			    <i class="icon ion-chevron-right"></i><i class="icon ion-chevron-right"></i>{{"SWIPE IF ARRIVED" | translate}}
+			  </a>
+
+			  <a href="javascript:void(0)" class="button button-balanced clickToFinish" ng-show="request_is_ongoing && driver" ng-swipe-right="finishStatus()" >
+				<i class="icon ion-chevron-right"></i><i class="icon ion-chevron-right"></i>{{ "SWIPE TO FINISH RIDE" | translate}}
+			  </a>
+		  </div>
+		  
+		  <div id="driver_panel" ng-if="driver && accepted">
+
+			  <!--<button ng-click="compareRates()" class="fab clickToCall" ng-show="!has_request && isDriverOnline && driver && positionLoaded"  >
+				<i class="ion-radio-waves"></i>
+			  </button>
+			  
+			  <button ng-click="showSideMenu()" class="fab sidemenu">
+				<i class="viewIcon ion-settings"></i>
+			  </button>
+			  
+			  <button ng-click="centerWithGPS()" class="fab locate" ng-show="passenger || (driver && accepted && isDriverOnline && myLocationMarker && map_moved_by_user)">
+				<div class="viewIcon ion-android-locate"></div>
+			  </button>
+			  
+			  <div ng-click="centerWithGPS()" class="fab locate" ng-show="passenger || (driver && accepted && isDriverOnline && myLocationMarker && map_moved_by_user)">
+			  	<i class="viewIcon ion-android-locate"></i>
+			  </div>
+			  
+			  <button ng-click="cancelStatus()" class="button button-assertive fab clickToCancel" ng-show="request_is_accepted">
+				<i class="viewIcon ion-close-round"></i>
+			  </button>
+			  
+			  <button ng-click="showChat()" class="fab sendText"  ng-show="has_request && contact_phone">
+				<i class="ion-android-chat"></i>
+			  </button>
+			  
+			  <button ng-click="showMeter()" class="fab showMeter" ng-show="request_is_ongoing "  >
+				<i class="viewIcon ion-pricetags"></i>
+			  </button>
+			  
+			  <button ng-click="tel:{{ contact_phone }}" class="fab clickToCall" ng-show="has_request && contact_phone">
+				<i class="viewIcon ion-android-call"></i>
+			  </button>-->
+			  
+			  <ul class="ulIcons">
+				<li class="liIcons"><a class="aIcons" ng-click="invite()"><i class="icon-5x ion-person-add"></i></a></li>
+			    <li class="liIcons" ng-show="has_request"><a class="aIcons" ng-click="showNav()"><i class="icon-5x ion-android-navigate"></i></a></li>
+			    <li class="liIcons" ng-show="has_request && contact_phone"><a class="aIcons" href="tel:{{ contact_phone }}"><i class="icon-5x ion-android-call"></i></a></li>
+			    <li class="liIcons" ng-show="has_request"><a class="aIcons" ng-click="showChat()"><i class="icon-5x ion-android-chat"></i></a></li>
+			    <li class="liIcons" ng-show="request_is_accepted"><a class="aIcons" ng-click="cancelStatus()"><i class="icon-5x ion-close-round"></i></a></li>
+			    <li class="liIcons" ng-show="request_is_ongoing"><a class="aIcons" ng-click="showMeter()"><i class="icon-5x ion-pricetags"></i></a></li>
+			    <li class="liIcons" ng-show="!has_request && isDriverOnline"><a class="aIcons" ng-click="showCustomers()"><i class="icon-5x ion-ios-people"></i></a></li>
+			  	<li class="liIcons" ng-show="!has_request && isDriverOnline && driver && positionLoaded"><a class="aIcons" ng-click="compareRates()"><i class="icon-5x ion-radio-waves"></i></a></li>
+			  	<li class="liIcons" ng-show="!has_request && isDriverOnline && driver"><a class="aIcons" ng-click="driverStatus()"><i class="icon-5x ion-stats-bars"></i></a></li>
+			  	<li class="liIcons" ng-show="passenger || (driver && accepted && isDriverOnline && myLocationMarker && map_moved_by_user)"><a class="aIcons" ng-click="centerWithGPS()"><i class="icon-5x ion-android-locate"></i></a></li>
+			    
+          
+
+			  </ul>
+		  
+		  </div>
+		  
+		  <div id="passenger_panel" ng-if="passenger">
+			  <!--<button ng-click="showSideMenu()" class="fab sidemenu">
+				<i class="viewIcon ion-settings"></i>
+			  </button>
+			  
+			  <button ng-click="centerWithGPS()" class="fab locate" ng-show="passenger || (driver && accepted && isDriverOnline && myLocationMarker && map_moved_by_user)">
+				<div class="viewIcon ion-android-locate"></div>
+			  </button>
+			  
+			  <div ng-click="centerWithGPS()" class="fab locate" ng-show="passenger || (driver && accepted && isDriverOnline && myLocationMarker && map_moved_by_user)">
+			  	<i class="viewIcon ion-android-locate"></i>
+			  </div>
+			  
+			  <button ng-click="cancelStatus()" class="button button-assertive fab clickToCancel" ng-show="request_is_accepted">
+				<i class="viewIcon ion-close-round"></i>
+			  </button>
+			  
+			  <button ng-click="showChat()" class="fab sendText"  ng-show="has_request && contact_phone">
+				<i class="ion-android-chat"></i>
+			  </button>
+			  
+			  <button ng-click="showMeter()" class="fab showMeter" ng-show="request_is_ongoing "  >
+				<i class="ion-pricetags"></i>
+			  </button>
+
+			  <button ng-click="tel:{{ contact_phone }}" class="fab clickToCall" ng-show="has_request && contact_phone">
+				<i class="viewIcon ion-android-call"></i>
+			  </button>-->
+			  
+			  <ul class="ulIcons">
+			  	<li class="liIcons"><a class="aIcons" ng-click="invite()"><i class="icon-5x ion-person-add"></i></a></li>
+			    <li class="liIcons" ng-show="request_is_ongoing"><a class="aIcons" ng-click="sendUrl()"><i class="icon-5x ion-android-share-alt"></i></a></li>
+			    <li class="liIcons" ng-show="has_request && contact_phone"><a class="aIcons" href="tel:{{ contact_phone }}"><i class="icon-5x ion-android-call"></i></a></li>
+			    <li class="liIcons" ng-show="has_request"><a class="aIcons" ng-click="showChat()"><i class="icon-5x ion-android-chat"></i></a></li>
+			    <li class="liIcons" ng-show="request_is_accepted"><a class="aIcons" ng-click="cancelStatus()"><i class="icon-5x ion-close-round"></i></a></li>
+			    <li class="liIcons" ng-show="request_is_ongoing"><a class="aIcons" ng-click="showMeter()"><i class="icon-5x ion-pricetags"></i></a></li>
+			    <li class="liIcons" ng-show="passenger || (driver && accepted && isDriverOnline && myLocationMarker && map_moved_by_user)"><a class="aIcons" ng-click="centerWithGPS()" ><i class="icon-5x ion-android-locate"></i></a></li>
+			    
+			  </ul>
+		  </div>
+		  
+		  <div id = "messageDIV" ng-show="!has_request && showMessages && messages.length">
+		  	<div class="animate-slide" ng-show="slide" >
+			  	<div class="alert success" ng-click="slide=!slide">
+			  		<strong>News from Nyota Ride<i class="icon ion-ios-email-outline" style="color: white;font-size: 28px;vertical-align: middle;margin-left: 10px;"></i> 
+			  		<a href="" class="notif"><span class="num">{{messages.length}}</span></a></strong>
+				</div>
+				<span class="closebtn" ng-click="markMessagesAsRead()">&times;</i></span> 
+				<div class="destContent" >
+					<div class="card" style="background-color: white;color: black;" ng-repeat="message in messages">
+						<div class="item">
+							<h2 class="ng-binding" style="font-size: 18px;">{{ message.title }}</h2>
+						</div>
+						<div class="item item-icon-left item-button-right item-custom ng-binding">
+							<i class="icon ion-calendar"></i> {{message.created_at}}
+						</div>
+						<div class="item item-text-wrap item-custom ng-binding" ng-bind-html="message.message | trusted_html" ng-if="message.message" sb-a-click="" style= "text-align: justify;">
+							{{message.message}}
+						</div>
+					</div>
+				</div>
+		    </div>
+		  </div>
+          <!--<div ng-click="showFloatingInfos()" class="button button-balanced go" ng-show="showGoBtn" ng-if="!has_request">
+            <p>
+				<i class="icon ion-paper-airplane"></i>{{ "Request Ride" | translate }}
+            </p>
+          </div>-->
+        </div>
+      </div>
+      
+      
+      
+      <div id="tripDIV" ng-show="has_request">
+		  	<div class="animate-trip">
+			  	<table style= "width: 100%; margin-left: 10px; border-bottom: 1px;">
+			  		<tr>
+			  			<td style= "width: 60px;">
+			  				<a href="javascript:void(0)" class="image_rating" ng-show="show_image && (driver && accepted || has_request && passenger)">
+					            <div>
+									<img ng-src="{{user_image}}" class="image_rating" />
+								</div>
+					          </a>
+							  
+							  <a href="javascript:void(0)" class="ratingview" ng-show="show_rating && (!has_request && driver && accepted || has_request && passenger)" >
+					            <i class="smallicon icon ion-ios-star-half"></i> {{user_rating}}
+					          </a>
+			  			</td>
+			  			<td style= "vertical-align: top;">
+			  				<div style="font-weight: 500;" ng-show="driver && has_request"><i class="icon ion-person"></i> <b>{{firstname}}</b></div> <div ng-show="passenger && has_request"><i class="icon ion-person"></i> <b>{{firstname}}</b> </div>
+			  				<div style="font-weight: 500;" ng-show="passenger && has_request"><i class="icon ion-model-s"></i> {{driver_vehicle | uppercase}}</div>
+			  				<!--<a href="javascript:void(0)" class="floatOrigIcon"><i class="icon ion-android-more-vertical" style="color: green;"></i></a>
+			  				<div><i class="icon ion-android-radio-button-on" style="color: green;"></i> {{current_request.pickup_address}}</div>-->
+			  				<div style="font-weight: 500;"><i class="icon ion-android-radio-button-on" style="color: red;"></i> {{destination_short}}</div>
+			  				<div style="font-weight: 500;"><i class="icon ion-information-circled"></i> {{arrivalInfo}} </div>
+			  				
+			  				<!--<a href="javascript:void(0)" class="floatDestIcon"><i class="icon ion-android-more-vertical" style="color: green;"></i></a>-->
+			  			</td>
+			  		</tr>
+			  	</table>
+			  	
+			  	<!--<table style= "width: 100%; margin-left: 10px;">
+			  		<tr>
+			  			<td class="liIcons" ng-show="has_request && contact_phone">
+			  				<a class="aIcons" ng-click="tel:{{ contact_phone }}"><i class="icon-5x ion-android-call"></i></a>
+			  				<div ng-show="driver">Call Passenger</div> <div ng-show="passenger">Call Driver</div>
+			  			</td>
+			  			<td ng-show="has_request">
+			  				<a class="aIcons" ng-click="showChat()"><i class="icon-5x ion-android-chat"></i></a>
+			  				<div>Chat</div>
+			  			</td>
+			  			<td ng-show="!request_is_ongoing">
+			  				<a class="aIcons" ng-click="cancelStatus()"><i class="icon-5x ion-close-round"></i></a>
+			  				<div>Cancel Ride</div>
+			  			</td>
+			  			<td class="liIcons" ng-show="request_is_ongoing">
+			  				<a class="aIcons" ng-click="showMeter()"><i class="icon-5x ion-pricetags"></i></a>
+			  				<div>Live Meter</div>
+			  			</td>
+			  		</tr>
+			  	</table>-->
+		    </div>
+		  </div>
+		  <div id="liveMarker" class="">
+		  	<div id="infoi"></div>
+		  </div>
+		  
+    </div>
+  </ion-content>
+</ion-view>
+<style>
+a.notif {
+    position: absolute;
+    margin-top: -5px;
+    margin-left: -5px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #901616;
+}
+.num {
+  color: #fff !important;
+  position: absolute;
+  margin-top: 1px;
+    margin-left: 6px;
+}
+.alert {
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    /*margin-bottom: 15px;*/
+}
+
+.alert.success {background-color: black;}
+
+.closebtn {
+    margin-left: 15px;
+    color: white !important;
+    font-weight: bold;
+    float: right;
+    font-size: 42px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    top: 20px;
+    right: 10px;
+    position: absolute;
+}
+
+#slide{
+  position:absolute;
+  width:100%;
+  height:100px;
+  top:90%;
+  background: #f8f8f8;
+}  
+
+.animate-slide {
+  z-index: 10000;
+  overflow-y: scroll;
+  background: black;
+  position:absolute;
+  width: 100%;
+  height:85%;
+  top: 15%;
+  -webkit-transform: translate3d(0,0,0); /* Chrome, Safari, Opera */
+  transform: translate3d(0,0,0,);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+
+.animate-slide.ng-hide-add,
+.animate-slide.ng-hide-remove {
+  display:block!important;
+}
+
+.animate-slide.ng-hide-remove.ng-hide-remove-active {
+  -webkit-animation:0.5s slide-up;
+  animation:0.5s slide-up;
+}
+
+.animate-slide.ng-hide-add.ng-hide-add-active {
+  -webkit-animation:0.5s slide-down;
+  animation:0.5s slide-down;
+}
+
+.animate-slide.ng-hide {
+  top:88%;
+  display:block!important;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide-up
+{
+  0%   {top:88%;}
+  100%  {top:15%;}
+}
+
+/* Standard syntax */
+@keyframes slide-up
+{
+  0%   {top:88%;}
+  100%  {top:15%;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes slide-down
+{
+  0%  {top:15%;}
+  100%   {top:88%;}
+}
+
+/* Standard syntax */
+@keyframes slide-down
+{
+  0%  {top:15%;}
+  100%   {top:88%;}
+}
+
+#messageDIV{
+	overflow-y: scroll;
+}
+
+#trip{
+  position:absolute;
+  /*width:100%;
+  height:100px;*/
+  top:95%;
+  background: #f8f8f8;
+}  
+
+.animate-trip {
+  top: 30px !important;
+  z-index: 10000;
+  background: rgba(255, 255, 255, 0.6);
+  position:absolute;
+  width: 98%;
+  margin-left: 1%;
+  -webkit-transform: translate3d(0,0,0); /* Chrome, Safari, Opera */
+  transform: translate3d(0,0,0,);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 25px;
+}
+
+.animate-trip.ng-hide-add,
+.animate-trip.ng-hide-remove {
+  display:block!important;
+}
+
+.animate-trip.ng-hide-remove.ng-hide-remove-active {
+  -webkit-animation:0.5s slide-up;
+  animation:0.5s slide-up;
+}
+
+.animate-trip.ng-hide-add.ng-hide-add-active {
+  -webkit-animation:0.5s slide-down;
+  animation:0.5s slide-down;
+}
+
+.animate-trip.ng-hide {
+  top:95%;
+  display:block!important;
+}
+
+#tripDIV {
+	/*height: 100px;*/
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes trip-up
+{
+  0%   {top:95%;}
+  100%  {top:75%;}
+}
+
+/* Standard syntax */
+@keyframes trip-up
+{
+  0%   {top:95%;}
+  100%  {top:75%;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes trip-down
+{
+  0%  {top:75%;}
+  100%   {top:95%;}
+}
+
+/* Standard syntax */
+@keyframes trip-down
+{
+  0%  {top:75%;}
+  100%   {top:95%;}
+}
+
+#map {
+	z-index: 1000;
+	height: 100%;
+}
+ #mapContainer, #map, #mapOverlay, #greyOverlay {
+     position: absolute;
+     left: 0;
+     top: 0;
+     width: 100%;
+     height: 100%;
+ }
+
+ #mapOverlay, #greyOverlay {
+     position: absolute;
+     top: 0;
+     right: 0;
+     left: 0;
+     bottom: 0;
+ }
+
+ #mapOverlay {
+     pointer-events:none;
+     background: transparent !important;
+     z-index: 1001;
+ }
+
+ #greyOverlay {
+     pointer-events: auto;
+     background: rgba(127,127,127, 0.5);
+     z-index: 1000;
+ }
+
+ #mapOverlay * {
+     pointer-events: auto;
+ }
+
+ #mapOverlay .center_marker, #mapOverlay .center_marker * {
+     pointer-events: none;
+ }
+
+ #mapOverlay .center_marker {
+     background: transparent !important;
+     position: absolute;
+     /* font-size: 50px; */
+     text-align: center;
+     width: 300px;
+     height: 30px;
+     top: 50%;
+     left: 50%;
+
+     /* Valeurs ajustées par rapport à l'icone */
+     margin-left: -150px;
+     margin-top: -60px;
+
+     text-shadow: 2px 2px 2px rgba(150, 150, 150, 1);
+ }
+
+ #mapOverlay .center_marker i.icon {
+     margin-top: -50px;
+ }
+ 
+ #marke{
+	padding: 10px;
+    border-radius: 25px;
+	height: 50px;
+	width: 100%;
+	font-size: small;
+ }
+
+ .main{
+	color: white;
+	font-weight: bold;
+	display:inline;
+	background: #509414;
+	padding: 5px;
+ }
+
+ .main2{
+	color: black;
+	display:inline;
+	background: #61bf0d;
+	padding: 5px;
+	border-radius:100px;
+ }
+ 
+ .main3{
+	color: white;
+	display:inline;
+	background: green;
+	padding: 5px;
+	border-radius: 50%;
+ }
+ 
+ .viewIcon {
+     vertical-align: middle; 
+      text-align: center;
+      text-decoration: none;
+      top: 50% !important;
+     left: 50% !important;
+}
+ .button.button-custom2 {
+	border-color: rgba(178, 178, 178, 1);
+	background-color: rgba(248, 248, 248, 1);
+	color: rgba(68, 68, 68, 1);
+	text-align: left;
+	padding-left: 60px;
+	line-height: 25px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: 0px;
+}
+
+ .destLists {
+ 	border: 1px black;
+ }
+ .destContent {
+ 	overflow-y: scroll;
+    padding-bottom: 0 !important;
+    max-height: 85vh;
+    background: black;
+    color: white;
+ }
+	
+	
+ .item-floating-label .input-label {
+    /* position: relative; */
+    padding: 5px 0 0;
+	margin-top: -6px;
+    opacity: 0;
+    /* top: 10px; */
+    -webkit-transition: opacity .15s ease-in,top .2s linear;
+    transition: opacity 1s ease-in,top 2s linear;
+ }
+
+ .whereToInput{
+	width: 100% !important; 
+	margin-top: -4px !important;
+	border-radius: 6px !important;
+	display: block;
+    padding-top: 2px !important; 
+    padding-left: 36px !important;
+    height: 34px;
+	color: black;
+    vertical-align: middle;
+    font-size: 16px !important;
+    line-height: 16px;
+	
+	background:#fff no-repeat 8px 10px;
+	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkU5NEY0RTlFMTA4NzExRTM5RTEzQkFBQzMyRjkyQzVBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkU5NEY0RTlGMTA4NzExRTM5RTEzQkFBQzMyRjkyQzVBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RTk0RjRFOUMxMDg3MTFFMzlFMTNCQUFDMzJGOTJDNUEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RTk0RjRFOUQxMDg3MTFFMzlFMTNCQUFDMzJGOTJDNUEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4DjA/RAAABK0lEQVR42pTSQUdEURjG8dOY0TqmPkGmRcqYD9CmzZAWJRHVRIa0iFYtM6uofYaiEW2SRJtEi9YxIklp07ZkWswu0v/wnByve7vm5ee8M+85zz1jbt9Os+WiGkYdYxjCOx5wgFeXUHmtBSzpcCGa+5BJTCjEP+0nKWAT8xqe4ArPGEEVC1hHEbs2oBwdXkM7mj/JLZrad437sCGHOfUtcziutuYu2v8XUFF/4f6vMK/YgAH1HxkBYV60AR31gxkBYd6xAeF3VzMCwvzOBpypX8V4yuFRzX2d2gD/l5yjH4fYQEnzkj4fae5rJulF2sMXVrAsaTWttRFu4Osb+1jEDT71/ZveyhouTch2fINQL9hKefKjuYFfuznXWzXMTabyrvfyIV3M4vhXgAEAUMs7K0J9UJAAAAAASUVORK5CYII=);
+
+	
+ }
+ 
+ .ng-touched::-webkit-input-placeholder { color: black; }
+ .ng-untouched::-webkit-input-placeholder { color: #black; }
+ 
+ #marker{
+	z-index: 1000;
+ }
+ .dist{
+	background: red;
+ }
+ hr {
+    box-sizing: content-box;
+    height: 100%;
+}
+
+ #floating_addresses {
+     margin: 5%;
+     margin-top: 10px;
+ }
+
+ #driver_not_accepted {
+     position: absolute;
+     height: 200px;
+     width: 300px;
+     top: 20%;
+     left:50%;
+     margin-top: -100px;
+     margin-left: -150px;
+     font-size: 20px;
+     padding-top: 40px;
+     padding: 20px;
+     display: table;
+     -moz-box-shadow: 0px 3px 15px 4px #656565;
+     -webkit-box-shadow: 0px 3px 15px 4px #656565;
+     -o-box-shadow: 0px 3px 15px 4px #656565;
+     box-shadow: 0px 3px 15px 4px #656565;
+     filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=180, Strength=15);
+ }
+
+ #driver_not_accepted .cell {
+     display: table-cell;
+     vertical-align: middle;
+     background: #adadad;
+ }
+ 
+ ul.ulIcons { 
+ 	list-style: none;
+ 	text-align: right;
+ }
+  
+ li.liIcons {
+    display: inline-block;
+    background-color: grey;
+    margin-left: 5px;
+    margin-right: 5px;border-radius: 50%;
+    border-color: rgba(178, 178, 178, 1);
+    background-color: rgba(248, 248, 248, 1);
+    color: rgba(68, 68, 68, 1);
+    -webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+     -moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+     box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+   }
+    a.aIcons {
+      color: black;
+      display: table-cell;
+      vertical-align: middle; 
+      text-align: center;
+      text-decoration: none;
+      height: 40px;
+      width: 40px;
+      font-size: 24px;
+  }
+  
+
+ .fab {
+	 font-size:1.6em;
+	 display: inline-block;
+     border-radius: 100%;
+     width: 40px;
+     height: 40px;
+     margin: auto;
+     -webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+     -moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+     box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+     position: absolute;
+     border-color: rgba(178, 178, 178, 1);
+    background-color: rgba(248, 248, 248, 1);
+    color: rgba(68, 68, 68, 1);
+     
+ }
+
+ .fab.driver-status-toggle {
+     width: 150px;
+     height: 74px;
+     right: 50%;
+     margin-right: -37px;
+     line-height: 20px;
+     font-size: 16px;
+ }
+
+ .fab.sidemenu {
+     z-index: 9999;
+	 right: 10px;
+ }
+
+ .fab.locate {
+     /* bottom: 80px; */
+	 right: 10px;
+ }
+
+ .fab.clickToCall {
+     left: 10px;
+ }
+ 
+ .image_rating {
+	z-index: 10;
+    left: 0px;
+    right: auto;
+    top: 0px;
+    bottom: auto;
+	
+	border: none;
+    font-size: 1.5em;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    -webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+    -moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+    box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+    /*position: absolute;*/
+ }
+ 
+ .ratingview {
+	z-index: 12;
+	font-weight: bolder;
+	height: 10px
+	horizontal-align: center;
+    width: 50px;
+	right: auto;
+	margin-top: 4px;
+	-webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+	-moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+	box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+	position: absolute;
+	font-size: 12px;
+	padding: 0 5px;
+	min-height: 0px;
+	line-height: 10px;
+	border-color: #141514;
+    background-color: #ffffff;
+    color: #0c0c0c;
+ }
+ 
+ .floatDestIcon {
+ 	margin-top: -30px;
+    margin-left: 5px;
+    position: fixed;
+ }
+ 
+ .floatOrigIcon{
+    margin-top: 10px;
+    margin-left: 5px;
+    position: fixed;
+ }
+ .smallicon .ion-ios-star-half {
+	font-size: 12px;
+ }
+ 
+ .vehicleview {
+    z-index: 8;
+    font-weight: bolder;
+    height: 40px;
+    /* vertical-align: middle; */
+    min-height: 50px;
+    /* width: 200px; */
+    left: 20px;
+    right: auto;
+    padding-left: 35px;
+    /* padding-bottom: 0; */
+    -webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+    -moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+    box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+    /* position: absolute; */
+    font-size: 14px;
+    background-color: rgba(255,255,255,0.7) !important;
+    color: black !important;
+    border-color: black !important;
+}
+ 
+
+ .fab.clickToCancel {
+     left: 42%;
+     right: 50%;
+ }
+ 
+ .fab.showMeter{
+     left: 42%;
+     right: 50%;
+ }
+
+ .clickToFinish, .clickToStart, .go2{
+     left: auto;
+     right: auto;
+	 width: 100%;
+     -webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+     -moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+     box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+     position: absolute;
+	 font-size: 18px;
+ }
+ 
+ .go {
+    left: auto;
+	right: auto;
+    bottom: 20px;
+	left: 72px;
+	-webkit-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+	-moz-box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+	box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+	position: absolute;
+	}
+	
+	/*.go2 {
+    left: auto;
+	right: auto;
+    bottom: 5px;
+	left: 5px;
+	position: absolute;
+	}*/
+ 
+	.item-input{
+		height: 40px;
+	}
+	.pick-drop-label{
+		width: 100px;
+		color: rgba(68, 68, 68, 1);
+		background-color: transparent;    
+		white-space: initial;
+		font-size: 16px;
+	}
+	.pickOnMapBtn{
+		border: none;
+		font-size: 1.5em;
+		border-radius: 50%;
+		margin: auto;
+		box-shadow: 2px 3px 3px 0px rgba(41, 41, 41, .3);
+		position: absolute;
+		right: 10px;
+		width: 35px;
+		height: 35px;
+	}
+	
+	.pickupMapBtn{
+		top: 12px;
+	}
+	
+	.droffMapBtn{
+		top: 50px;
+	}
+	
+	.fab.sendText{
+      left: 72px;
+     right: auto;
+    }
+	
+	#driver_panel {
+		bottom: 55px;
+		width: 100%;
+		position: absolute;
+	}
+	
+	#passenger_panel {
+		 bottom: 10px;
+		 width: 100%;
+		position: absolute;
+	}
+	
+	#driver_panel_action{
+		 bottom: 50px;
+		 width: 100%;
+		position: absolute;
+	}
+	
+	.item-dest {
+		border-color: rgba(68, 68, 68, 1);
+		background-color: rgba(248, 248, 248, 1);
+		color: rgba(68, 68, 68, 1);
+		border-width: 0px;
+		height: 70px;
+		/*display: flex;*/
+		-webkit-box-align: center;
+		align-items: center;
+		position: relative;
+		overflow: hidden;
+		padding: 6px 5px 5px 6px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		z-index: 2;
+		margin: -1px;
+		border-style: solid;
+		font-size: 16px;
+		border-radius: 10px;
+		
+	}
+	
+	/* Bars */
+      @-webkit-keyframes bar-slide {
+        0%   { width: 100%;   }
+        100% { width: 0%; }
+      }
+      .bar-timer {
+        margin: -5px 0;
+        height: 10px;
+        width: 95%;
+        border: 1px solid #48f;
+        position: absolute;
+        -webkit-border-radius: 3px;
+        box-shadow: #acf 0px 0px 7px;
+		z-index: 100;
+      }
+      .bar-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: #48f;
+        -webkit-animation-name: bar-slide;
+        -webkit-animation-duration: 30s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease-out;
+      }
+      
+      #inf {
+    width: 15px;
+    height: 15px;
+   margin-top:3px;
+   transform: translate(-20%, -20%);
+   
+    
+    background-color: #0088FF;
+    border-radius: 100px;
+   
+  }
+  .liveMarker { 
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border:1px solid red;
+    background-color:rgba(253, 1, 1, 0.514);
+    border-radius: 100px;
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+   
+  }
+  
+  #inf{
+    z-index: 10;
+  }
+      /* The location pointed to by the popup tip. */
+      .popup-tip-anchor {
+        height: 0;
+        position: absolute;
+        /* The max width of the info window. */
+        width: 0px;
+      }
+  
+      
+      /* The popup bubble itself. */
+      .popup-bubble-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+      /*  transform: translate(-29%, -69%); */
+        /* Style the info window. */
+
+        padding: 5px;
+        
+        font-family: sans-serif;
+        overflow-y: auto;
+       
+      }
+      @keyframes example {
+    from {transform: scale(1, 1)}
+    to {transform: scale(1.2, 1.2)}
+    
+    /* The location pointed to by the popup tip. */
+	.popup-tip-anchor {
+	  height: 0;
+	  position: absolute;
+	  /* The max width of the info window. */
+	  width: 200px;
+	}
+	/* The bubble is anchored above the tip. */
+	.popup-bubble-anchor {
+	  position: absolute;
+	  width: 100%;
+	  bottom: /* TIP_HEIGHT= */ 8px;
+	  left: 0;
+	}
+	/* Draw the tip. */
+	.popup-bubble-anchor::after {
+	  content: "";
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  /* Center the tip horizontally. */
+	  transform: translate(-50%, 0);
+	  /* The tip is a https://css-tricks.com/snippets/css/css-triangle/ */
+	  width: 0;
+	  height: 0;
+	  /* The tip is 8px high, and 12px wide. */
+	  border-left: 6px solid transparent;
+	  border-right: 6px solid transparent;
+	  border-top: /* TIP_HEIGHT= */ 8px solid white;
+	}
+	/* The popup bubble itself. */
+	.popup-bubble-content {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  transform: translate(-50%, -100%);
+	  /* Style the info window. */
+	  background-color: white;
+	  padding: 5px;
+	  border-radius: 5px;
+	  font-family: sans-serif;
+	  overflow-y: auto;
+	  max-height: 60px;
+	  box-shadow: 0px 2px 10px 1px rgba(0,0,0,0.5);
+	}
+ 
+</style>

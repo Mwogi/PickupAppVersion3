@@ -1,0 +1,224 @@
+<ion-modal-view cache-view="false" ng-controller="TaxiRideEstimateRideModalController" style=" ;width: 100%; height:100% ;margin-top:0%;bottom:0%;"  >
+    <ion-header-bar class="bar-custom">
+		<h1 class="title">{{ 'Add Vehicle' | translate }}</h1>
+		<span class="closebtnMeter" ng-click="close()">&times;</i></span> 
+    </ion-header-bar>
+    <ion-content>
+        <ion-content class="has-footer" scroll="false">
+            <div>
+              
+				<div>
+                <div id="list">
+                    <fieldset style="width:100%">
+                        <legend class="button-dark">Add Vehicle</legend>
+						
+							<label class="item item-input item-custom">
+								<div>
+									{{ "Make & Model" | translate }}
+								</div>
+								<input class="text-right" type="text" placeholder="e.g. Toyota Fielder" ng-model="data.modelName" ng-required="true"  />
+							</label>
+							
+							<label class="item item-input item-custom">
+								<div>
+									{{ "Number Plate" | translate }}
+								</div>
+								<input class="text-right" type="text" placeholder="e.g. KXX 001A" ng-model="data.plateName" ng-required="true"  />
+							</label>
+							
+							<label class="item item-input item-custom">
+								<div>
+									{{ "Year" | translate }}
+								</div>
+								<input class="text-right" type="number" placeholder="Year of manufacture" ng-model="data.colorName" ng-required="true"  />
+							</label>
+							<hr/>
+							<h4>Upload Vehicle Documents</h4>
+							<label class="item item-input item-custom">
+								<div>
+									{{ "Insurance" | translate }}
+								</div>
+								<div class="col col-65">	
+									<div class="" ng-show="data.progressPercentVI > 0">
+										<div class="loader" style="width: {{data.progressPercentVI}}%;">
+											<p class="percent">{{data.progressPercentVI}}%</p>
+										</div>
+									</div>
+								</div>
+								<button ng-click="data.uploadVI()"  style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">upload</button>
+							</label>
+							
+							<label class="item item-input item-custom">
+								<div>
+									{{ "Front Photo" | translate }}
+								</div>
+								<div class="col col-65">	
+									<div class="" ng-show="data.progressPercentIR > 0">
+										<div class="loader" style="width: {{data.progressPercentIR}}%;">
+											<p class="percent">{{data.progressPercentIR}}%</p>
+										</div>
+									</div>
+								</div>
+								<button ng-click="data.uploadIR()"  style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">upload</button>
+							</label>
+							
+							<label class="item item-input item-custom">
+								<div>
+									{{ "Side Photo" | translate }}
+								</div>
+								<div class="col col-65">	
+									<div class="" ng-show="data.progressPercentVL > 0">
+										<div class="loader" style="width: {{data.progressPercentVL}}%;">
+											<p class="percent">{{data.progressPercentVL}}%</p>
+										</div>
+									</div>
+								</div>
+								<button ng-click="data.uploadVL()"  style="font-size: xx-small;" class="button icon icon-left ion-upload button-balanced">upload</button>
+							</label>
+						
+						   <div class="row">
+							<!--<button class="button button-block button-positive icon-right  ion-android-arrow-dropright-circle">
+							 Next
+							</button>-->
+							<button class="button button-block button-positive icon-right  ion-android-send" ng-click="data.uploadFinal()">
+								Register Vehicle
+							</button>
+						 </div>
+						
+                       <!-- <div class="row">
+                          <div class="col col-30" style="line-height:2">Model:</div>
+                          <div class="col col-65"><input type="text" placeholder="e.g. Toyota Fielder" class="sizer padding"  id="" ng-model="data.modelName"></div>
+                          <div class="col col-5"></div>
+                       </div>
+                       <div class="row">
+                        <div class="col col-30">No. Plate:</div>
+                        <div class="col col-65"><input type="text" placeholder="e.g. KXX 001A" class="sizer padding"  id="" ng-model="data.plateName"></div>
+                        <div class="col col-5"></div>
+                     </div>
+                     <div class="row">
+                      <div class="col col-30">Color&nbsp;</div>
+                      <div class="col col-65"><input type="color" name="" class="sizer padding" placeholder="Enter Vehicle color" ng-model="data.colorName"></div>
+                      <div class="col col-5"></div>
+                   </div>
+                   <div class="row">
+                    <button class="button button-block button-positive icon-right  ion-android-arrow-dropright-circle" ng-click="data.nextSlide()">
+                     Next 
+                    </button>
+                 </div>-->
+                       
+                        </fieldset>
+                </div>
+              </div>
+			  
+              <!--<ion-slide>
+                <h3>Step 2: Vehicle Documents</h3>
+                <hr/>
+                <div id="list">
+                    <fieldset style="margin-left:-32%;width:166%">
+                        <legend style="line-height:1.85714">Attach Documents</legend>
+							
+                       
+                        </fieldset>
+                </div>
+              </ion-slide>
+              <ion-slide>
+                <h3>Step 3: Submit Your Details</h3>
+                <hr/>
+                <div id="list">
+                    <fieldset style="margin-left:-32%;width:166%">
+                        <legend style="line-height:1.85714">Send Details</legend>
+                        <div class="row rower">
+                          <div class="col col-30" style="line-height: 1;font-size: small;">Vehicle Insurance</div>
+                          <div class="col col-70"> <button  ng-show="data.VI" style="font-size: medium;" class="button icon icon-left ion-android-cloud-done button-balanced">Available</button>	<button ng-show="!data.VI" style="font-size: medium;" class="button icon icon-left ion-sad-outline button-energized">Unvailable</button></div>
+                       </div>
+                       <div class="row rower padding">
+                        <div class="col col-30" style="line-height: 1;font-size: small;">Vehicle Front Photo</div>
+                        <div class="col col-70"> <button  ng-show="data.IR" style="font-size: medium;" class="button icon icon-left ion-android-cloud-done button-balanced">Available</button>	<button ng-show="!data.IR" style="font-size: medium;" class="button icon icon-left ion-sad-outline button-energized">Unvailable</button></div>
+                     </div>
+                      
+                     <div class="row rower padding">
+                      <div class="col col-30" style="line-height: 1;font-size: small;">Vehicle Side Photo</div>
+                      <div class="col col-70"> <button  ng-show="data.VL" style="font-size: medium;" class="button icon icon-left ion-android-cloud-done button-balanced">Available</button>	<button ng-show="!data.VL" style="font-size: medium;" class="button icon icon-left ion-sad-outline button-energized">Unvailable</button></div>
+                   </div>
+                   <div class="row">
+                    <button class="button button-block button-positive icon-right  ion-android-send" ng-click="data.uploadFinal()">
+                     Register Vehicle
+                    </button>
+                 </div>
+                       
+                        </fieldset>
+                </div>
+              </ion-slide>-->
+           
+            </div>
+          </ion-content>
+          <div class="progress-bar">
+            <div class="increment"></div>
+          </div>
+    </ion-content>
+  </ion-modal-view>
+  <style>
+    ion-slide{
+      padding-top: 34px !important;
+    }
+    ion-modal-view {
+    background-color: rgba(250, 250, 250, 1) !important; 
+}
+::-webkit-input-placeholder{
+   padding: 15px;
+    height: 100%;
+}
+.rower{
+  border:1px solid gainsboro;
+}
+.loader {
+  background: #f20d49 !important;
+ font-size: medium;
+  height: 20px;
+}
+.padding{
+padding-top: 5px
+}
+.loader p {
+  text-align: center;
+  color: white !important;
+  text-align: center;
+}
+
+
+
+.slider {
+  height: 100%;
+}
+.slider-slide {
+  padding-top: 80px;
+  text-align: center; }
+#list {
+  width: 90%;
+  margin: 30px auto;
+  font-size: 20px; }
+#list ol {
+  margin-top: 30px; }
+#list ol li {
+  text-align: left;
+  list-style: decimal;
+  margin: 10px 0px; }
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #F5F9FC;
+  position: absolute;
+  bottom: 44px;
+  z-index: 12; }
+.increment {
+  width: 5%;
+  height: 100%;
+  background: #017AFD;
+  transition: all .75s; }
+  
+  hr {
+    box-sizing: content-box;
+    height: 1px;
+}
+  </style>
